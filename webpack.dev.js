@@ -34,6 +34,10 @@ plugins.push(new CleanWebpackPlugin());
 
 module.exports = {
 	mode: "development",
+	experiments: {
+		topLevelAwait: true,
+	},
+	target: ["web", "es5"],
 	devServer: {
 		historyApiFallback: true,
 		static: path.resolve(__dirname, "./dist"),
@@ -54,10 +58,20 @@ module.exports = {
 
 	module: {
 		rules: [
-			// typescript
 			{
+				test: /\.js$/,
+				loader: "esbuild-loader",
+				options: {
+					target: "es2022",
+				},
+			},
+			{
+				// typescript
 				test: /\.tsx?$/,
-				use: "ts-loader",
+				loader: "esbuild-loader",
+				options: {
+					target: "es2022",
+				},
 				exclude: /node_modules/,
 			},
 			{
@@ -82,7 +96,7 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"],
+		extensions: [".tsx", ".jsx", ".ts", ".js"],
 		alias: {
 			"@ts": path.resolve(__dirname, "./src/ts/"),
 			"@utils": path.resolve(__dirname, "./src/utils/"),

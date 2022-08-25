@@ -7,15 +7,26 @@
 		<title><%= htmlWebpackPlugin.options.pageTitle %></title>
 	</head>
 	<body data-page="<%= htmlWebpackPlugin.options.pageName %>">
-		<js-textbox></js-textbox>
-		<js-modal>
+		<!--<js-modal>
 			<form>
-				<input type="text" name="" id="" />
-				<input type="text" name="" id="" />
-				<input type="text" name="" id="" />
+				<js-textbox variation="outline"></js-textbox>
+				<js-textbox></js-textbox>
+				<js-textbox></js-textbox>
 				<button>save</button>
 				<button>cancel</button>
 			</form>
-		</js-modal>
+		</js-modal>-->
+		<table id="table-shipments" class="js-dt-table" data-type="main">
+			<thead>
+				<tr>
+					<th class="none" data-type="id" data-name="t1.ID">ID</th>
+					<th class="none" data-type="int" data-name="t2.Num">ContenedorID</th>
+					<th class="all" data-type="string" data-name="t1.Embarque">Embarque</th>
+					<th class="all" data-type="string" data-name="t2.Codigo">Contenedor</th>
+					<th class="all" data-type="string" data-name="t3.Nombre">Bodega</th>
+					<th class="all" data-name="-1"></th>
+				</tr>
+			</thead>
+		</table>
 	</body>
 </html>

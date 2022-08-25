@@ -43,7 +43,9 @@ plugins.push(new CleanWebpackPlugin());
 
 module.exports = {
 	mode: "production",
-
+	experiments: {
+		topLevelAwait: true,
+	},
 	entry: entry,
 
 	output: {
@@ -88,10 +90,20 @@ module.exports = {
 
 	module: {
 		rules: [
-			// JavaScript
 			{
+				test: /\.js$/,
+				loader: "esbuild-loader",
+				options: {
+					target: "es2022",
+				},
+			},
+			{
+				// typescript
 				test: /\.tsx?$/,
-				use: "ts-loader",
+				loader: "esbuild-loader",
+				options: {
+					target: "es2022",
+				},
 				exclude: /node_modules/,
 			},
 			{
