@@ -56,10 +56,20 @@ module.exports = {
 		runtimeChunk: "single",
 		splitChunks: {
 			cacheGroups: {
+				//combinar todo el js de las librerias en un solo archivo
 				vendor: {
 					test: /[\\/]node_modules[\\/]/,
 					name: "vendors",
 					chunks: "all",
+				},
+				//combiar todo el css en un solo archivo
+				styles: {
+					name: "styles",
+					test: /\.s?css$/,
+					chunks: "all",
+					minChunks: 1,
+					reuseExistingChunk: true,
+					enforce: true,
 				},
 			},
 		},
@@ -83,6 +93,15 @@ module.exports = {
 						// npm package names are URL-safe, but some servers don't like @ symbols
 						return `npm.${packageName.replace("@", "")}`;
 					},
+				},
+				//combiar todo el css en un solo archivo
+				styles: {
+					name: "styles",
+					test: /\.s?css$/,
+					chunks: "all",
+					minChunks: 1,
+					reuseExistingChunk: true,
+					enforce: true,
 				},
 			},
 		},
