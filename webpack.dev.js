@@ -31,6 +31,11 @@ plugins.push(
 );
 //push the clean webpack plugin to the webpack plugins array
 plugins.push(new CleanWebpackPlugin());
+plugins.push(
+	new Dotenv({
+		path: path.resolve(__dirname, `./.env.dev`),
+	})
+);
 
 module.exports = {
 	mode: "development",
