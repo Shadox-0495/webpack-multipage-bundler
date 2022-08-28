@@ -1,7 +1,7 @@
 {
+	"extends": "./tsconfig.path.json",
 	"compilerOptions": {
 		"outDir": "./dist/",
-		"baseUrl": "src",
 		"noImplicitAny": true,
 		"module": "es2022",
 		"target": "es2017",

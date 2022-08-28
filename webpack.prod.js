@@ -109,22 +109,16 @@ module.exports = {
 
 	module: {
 		rules: [
-			{
-				test: /\.js$/,
-				loader: "esbuild-loader",
-				options: {
-					target: "es2022",
-				},
-			},
-			{
+			/*{
 				// typescript
-				test: /\.tsx?$/,
+				test: /\.(js|mjs|jsx|ts|tsx)$/,
 				loader: "esbuild-loader",
 				options: {
 					target: "es2022",
 				},
 				exclude: /node_modules/,
-			},
+			},*/
+			{ test: /\.ts?$/, loader: "ts-loader", exclude: /node_modules/ },
 			{
 				test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
 				type: "asset/resource",
@@ -153,6 +147,7 @@ module.exports = {
 			"@assets": path.resolve(__dirname, "./src/assets/"),
 			"@pages": path.resolve(__dirname, "./src/pages/"),
 			"@components": path.resolve(__dirname, "./src/components/"),
+			"@features": path.resolve(__dirname, "./src/features/"),
 			"@sass": path.resolve(__dirname, "./src/assets/sass/"),
 			"@img": path.resolve(__dirname, "./src/assets/img/"),
 		},

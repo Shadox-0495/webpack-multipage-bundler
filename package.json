@@ -13,6 +13,7 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/datatables.net": "^1.10.23",
 		"@types/jquery": "^3.5.14",
 		"clean-webpack-plugin": "^4.0.0",
 		"css-loader": "^6.7.1",
