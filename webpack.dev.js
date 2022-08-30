@@ -1,8 +1,13 @@
-const path = require("path");
-const fs = require("fs");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+import path from "path";
+import { fileURLToPath } from "url";
+import * as fs from "fs";
+import Dotenv from "dotenv-webpack";
+import webpack from "webpack";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //function to generate html files
 const generateHtmlPlugin = (args) => {
@@ -37,7 +42,7 @@ plugins.push(
 	})
 );
 
-module.exports = {
+export default {
 	mode: "development",
 	experiments: {
 		topLevelAwait: true,
@@ -72,7 +77,16 @@ module.exports = {
 				},
 				exclude: /node_modules/,
 			},*/
-			{ test: /\.ts?$/, loader: "ts-loader", exclude: /node_modules/ },
+			{
+				test: /\.ts?$/,
+				loader: "ts-loader",
+				options: {
+					compilerOptions: {
+						outDir: "./dist",
+					},
+				},
+				exclude: /node_modules/,
+			},
 			{
 				test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
 				type: "asset/resource",
@@ -95,7 +109,7 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: [".tsx", ".jsx", ".ts", ".js"],
+		extensions: ["", ".js", ".jsx", ".ts", ".tsx"],
 		alias: {
 			"@ts": path.resolve(__dirname, "./src/ts/"),
 			"@utils": path.resolve(__dirname, "./src/utils/"),

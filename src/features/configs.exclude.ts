@@ -2,10 +2,6 @@ export function mergeObjects(target: any, args: any) {
 	if (Object.keys(args).length === 0) return target;
 	let merge = Object.assign(target, args);
 	return merge;
-	/*for (const key in args) {
-		object[key] = args[key];
-	}
-	return object;*/
 }
 
 export function confDataTables(args: Object = {}) {
@@ -23,7 +19,7 @@ export function confDataTables(args: Object = {}) {
 		pagingType: "full_numbers",
 		deferRender: true,
 		processing: true,
-		pageLength: parseInt(localStorage.getItem("dtRecordsLength")) || 10,
+		pageLength: parseInt(localStorage.getItem("dtRecordsLength") || "10"),
 		serverSide: true,
 		ajax: {
 			type: "POST",
@@ -44,7 +40,7 @@ export function confDataTables(args: Object = {}) {
 					}).join("");
 					return data ? $("<div class='slider' />").append($("<table class='js-datatable__details' />").append(data)) : false;
 				},
-				display: (row: DataTables.RowMethods, update: DataTables.Api, render: Function) => {
+				display: (row: DataTables.RowMethods, update: any, render: Function) => {
 					if (update) {
 						return;
 					}

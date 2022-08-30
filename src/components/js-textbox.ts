@@ -1,3 +1,4 @@
+export {};
 class jsTextbox extends HTMLElement {
 	constructor() {
 		super();

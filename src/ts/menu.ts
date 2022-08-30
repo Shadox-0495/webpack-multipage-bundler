@@ -1,1 +1,1 @@
-console.log("Menu page");
+export {};

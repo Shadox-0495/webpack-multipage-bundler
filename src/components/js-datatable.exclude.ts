@@ -7,44 +7,37 @@ import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
 import { mergeObjects, confDataTables } from "@features/configs";
 
-type dataTableColumn = {
-	name: string;
-	num: number;
-	text: string;
-	type: string;
-};
-
 export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: any = {}) {
-	if ($htmlTable.length == 0 || $htmlTable.length > 1) return;
+	if ($htmlTable.length == 0 || $htmlTable.length > 1 || typeof $htmlTable == undefined) return;
 	let type = $htmlTable.attr("data-type");
 	if (!type) return;
 
 	let tableId = $htmlTable.attr("id");
-	let tableStart = $htmlTable.offset().top - 5;
+	//let tableStart = $htmlTable.offset().top - 5;
 	let totalRecords = 0;
 
-	let columns: Array<dataTableColumn> = [];
-	$htmlTable.find("thead>tr>th").each((index, header) => {
-		let { name, type } = $(header).data();
-		$(header).attr("data-num", `${index}`);
+	let columns = $htmlTable.find("thead>tr>th").map((index, colHeader) => {
+		let { name, type } = $(colHeader).data();
+		$(colHeader).attr("data-num", `${index}`);
 		//replace the spaces in the name for underscore for backend purpose.
 		if (!name) {
-			name = $(header).text() != "" ? $(header).text().replace(" ", "_") : "-1";
-			$(header).attr("data-name", name);
+			name = $(colHeader).text() != "" ? $(colHeader).text().replace(" ", "_") : "-1";
+			$(colHeader).attr("data-name", name);
 		}
-		columns.push({ name, num: index, text: $(header).text(), type: type ? type : "-1" });
+		return { name: `${name}`, num: index, text: $(colHeader).text(), type: `${type ? type : -1}` };
 	});
 	let conf: any = confDataTables();
 	conf.columns = columns;
 
 	let tableTypes: any = {
 		filter: () => {
-			conf.drawCallback = (settings: any) => {
+			/*conf.drawCallback = (settings: any) => {
 				if (settings._iDisplayStart != tableStart) {
 					var targetOffset = tableStart;
 					if ($("body").scrollTop() > targetOffset) $("body").animate({ scrollTop: targetOffset }, 500);
 				}
-			};
+			};*/
+			conf.ajax.url = url;
 			conf.ajax.data = (dataSent: any) => {
 				dataSent = mergeObjects(dataSent, ajaxArgs);
 				dataSent.totalRecords = totalRecords;
@@ -314,10 +307,10 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 
 	function getColumn(columnName: string) {
 		return columns
-			.filter((column, index) => {
+			.filter((index, column) => {
 				return column.name == columnName;
 			})
-			.map((column) => column.num);
+			.map((index, column) => column.num);
 	}
 
 	return {
@@ -328,7 +321,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 			let dataTable = $htmlTable.DataTable(conf);
 			//reference the DataTable's wrapper
 			let dataTableContainer = $htmlTable.closest(".dataTables_wrapper");
-			dataTableContainer.addClass("js-dt-wrapper").attr("data-view", type);
+			dataTableContainer.addClass("js-dt-wrapper").attr("data-view", `${type}`);
 			return dataTable;
 			/*dataTable.on("error.dt", function (e, settings, techNote, message) {
 				Swal.fire(cFormats.sweetalert("", "error", message, { showConfirmButton: true }));

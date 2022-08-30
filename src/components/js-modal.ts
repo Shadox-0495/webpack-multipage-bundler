@@ -1,3 +1,4 @@
+export {};
 class jsModal extends HTMLElement {
 	constructor() {
 		super();

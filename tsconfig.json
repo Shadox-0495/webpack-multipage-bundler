@@ -6,7 +6,14 @@
 		"module": "es2022",
 		"target": "es2017",
 		"jsx": "react",
-		"allowJs": true,
-		"moduleResolution": "node"
+		"allowJs": true, //research
+		"skipLibCheck": true, //research
+		"esModuleInterop": true, //research
+		"allowSyntheticDefaultImports": true, //research
+		"strict": true, //research
+		"forceConsistentCasingInFileNames": true, //research
+		"moduleResolution": "node", //research
+		"resolveJsonModule": true, //research
+		"isolatedModules": true //research
 	}
 }
