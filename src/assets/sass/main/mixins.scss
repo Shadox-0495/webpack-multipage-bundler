@@ -1,0 +1,118 @@
+@mixin webfont($family, $file, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $family;
+		src: url($file + ".eot");
+		src: url($file + ".eot?#iefix") format("embedded-opentype"), url($file + ".woff") format("woff"), url($file + ".ttf") format("truetype"), url($file + ".svg") format("svg");
+		font-weight: $weight;
+		font-style: $style;
+		font-display: block;
+	}
+}
+
+@mixin flex-c($justify: null, $align: null) {
+	display: flex;
+	flex-direction: column;
+	@if ($justify) {
+		justify-content: $justify;
+	}
+	@if ($align) {
+		align-items: $align;
+	}
+}
+
+@mixin flex-r($justify: null, $align: null) {
+	display: flex;
+	flex-direction: row;
+	@if ($justify) {
+		justify-content: $justify;
+	}
+	@if ($align) {
+		align-items: $align;
+	}
+}
+
+@mixin scrollbar($color: null) {
+	scrollbar-width: auto;
+	scrollbar-color: var(--hint-of-pensive) var(--chain-gang-grey);
+	/*$color: if($color != "", $color, var(--blue-nights));*/
+	@if ($color) {
+		$color: $color;
+	} @else {
+		$color: var(--blue-nights);
+	}
+
+	&::-webkit-scrollbar {
+		width: 4px;
+		height: 4px;
+		border-radius: 0px;
+		box-shadow: none;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: $color;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: var(--hint-of-pensive);
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--naval);
+		border-radius: 0px;
+		box-shadow: none;
+	}
+
+	/*scrollbar left/top border color should be consistent with containers color*/
+	/*&::-webkit-scrollbar-track:horizontal {
+		border-top: 8px solid $color;
+	}
+	&::-webkit-scrollbar-track:vertical {
+		border-left: 8px solid $color;
+	}
+
+	&::-webkit-scrollbar-thumb:horizontal {
+		border-top: 8px solid $color;
+	}
+	&::-webkit-scrollbar-thumb:vertical {
+		border-left: 8px solid $color;
+	}*/
+}
+
+@mixin fa-icon($icon: null, $size: null, $color: null) {
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font: var(--fa-font-solid);
+	@if ($icon) {
+		content: $icon;
+	}
+	@if ($size) {
+		font-size: $size;
+	} @else {
+		font-size: inherit;
+	}
+
+	@if ($color) {
+		color: $color;
+	} @else {
+		color: inherit;
+	}
+}
+
+@function rem($value) {
+	$value: $value / ($value * 0 + 1);
+	$val: ($value / 16) + rem;
+	@return $val;
+}
+
+@mixin truncate-text($line-limit: 1, $white-space-break: pre-wrap, $word-break-type: break-all, $overflow: ellipsis) {
+	display: -webkit-box;
+	-webkit-line-clamp: $line-limit;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: $overflow;
+	white-space: $white-space-break;
+	word-break: $word-break-type;
+}

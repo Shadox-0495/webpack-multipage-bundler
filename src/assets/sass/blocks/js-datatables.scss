@@ -1,0 +1,545 @@
+.js-dt-wrapper {
+	/*padding-bottom: 1rem;*/
+	margin: 1rem 1rem 0 1rem;
+	border-radius: 0.5rem;
+	border: 1px solid #e7e7e7;
+	background-color: var(--main-background);
+
+	& .dataTables_paginate {
+		width: 100%;
+		justify-content: center;
+		margin-top: 0px;
+		padding: 0.5rem 0;
+		@include flex-r(null, center);
+
+		& > span {
+			@include flex-r(null, center);
+			column-gap: 0.5rem;
+			& > .paginate_button {
+				&:not(.current) {
+					display: none;
+				}
+			}
+			& > .ellipsis {
+				display: none;
+			}
+		}
+
+		& .ellipsis {
+			color: var(--text3) !important;
+		}
+
+		& .paginate_button {
+			margin: 0px;
+			border: unset !important;
+			border-radius: unset;
+			color: var(--text3) !important;
+			&:active,
+			&:focus,
+			&:focus-visible,
+			&:hover {
+				background: unset;
+				outline: unset;
+				box-shadow: unset;
+			}
+			&:hover {
+				color: var(--text2) !important;
+			}
+			&.first,
+			&.previous,
+			&.next,
+			&.last {
+				color: var(--text2) !important;
+			}
+			&.first {
+				border-radius: 0.5rem 0 0 0.5rem;
+			}
+			&.last {
+				border-radius: 0 0.5rem 0.5rem 0;
+				margin-right: 1rem;
+			}
+
+			&.disabled {
+				color: var(--text4) !important;
+				&:hover {
+					color: var(--text4) !important;
+				}
+			}
+
+			&.current {
+				background: unset;
+				color: var(--text2);
+				font-weight: 600;
+				&:hover {
+					background: unset;
+				}
+			}
+		}
+	}
+
+	.js-dt-toolbar {
+		display: grid;
+		background-color: var(--datatable-header-background);
+		color: var(--datatable-header-forecolor);
+		padding: 0.5rem;
+		border-radius: 0.5rem 0.5rem 0 0;
+		grid-template-areas:
+			"js-dt-toolbar__info js-dt-toolbar__info js-dt-toolbar__info"
+			"search search search"
+			"js-dt-toolbar__add js-dt-toolbar__filter js-dt-toolbar__export";
+		grid-template-rows: auto minmax(0, 1fr) auto;
+		grid-template-columns: repeat(3, auto);
+		column-gap: 0.5rem;
+		row-gap: 1rem;
+		grid-auto-rows: 1fr;
+
+		&__info {
+			grid-area: js-dt-toolbar__info;
+			justify-content: space-between;
+		}
+		&__search {
+			width: 100%;
+		}
+		&__add {
+			grid-area: js-dt-toolbar__add;
+			justify-self: flex-end;
+			color: var(--datatable-input-forecolor);
+			border: var(--datatable-input-border);
+		}
+		&__filter {
+			grid-area: js-dt-toolbar__filter;
+			justify-self: center;
+			color: var(--datatable-input-forecolor);
+			border: var(--datatable-input-border);
+		}
+		&__export {
+			grid-area: js-dt-toolbar__export;
+			justify-self: flex-start;
+			& .js-dropdown__button {
+				background-color: var(--datatable-input-background);
+				border-color: unset;
+				color: var(--datatable-input-forecolor);
+				box-shadow: unset;
+				height: 100%;
+				border: var(--datatable-input-border);
+				& > span {
+					display: none;
+				}
+			}
+
+			& .js-dropdown__menu > button {
+				border: 0;
+				background: 0;
+				margin: 0 !important;
+			}
+		}
+
+		& :is(.js-dt-toolbar__info, .dataTables_filter, .dataTables_filter > label, .js-dt-toolbar__add, .js-dt-toolbar__filter, .js-dt-toolbar__export > .js-dropdown__button, .js-dt-toolbar__export .js-dropdown__menu-item > span) {
+			@include flex-r(null, center);
+			column-gap: 0.5rem;
+		}
+
+		& :is(.js-dt-toolbar__add, .js-dt-toolbar__filter) > *:is(span, .js-dropdown__button > span) {
+			display: none;
+		}
+
+		& :is(.dataTables_length, .dataTables_filter) :is(select, input) {
+			background-color: var(--datatable-input-background);
+			color: var(--datatable-input-forecolor);
+		}
+
+		& :is(#dbDt_length select, #dbDt_filter input[type="search"]) {
+			outline: none;
+			&:focus,
+			&:focus-visible {
+				outline: none;
+			}
+		}
+
+		& .dataTables {
+			&_info {
+				color: var(--datatable-header-forecolor);
+				font-weight: 600;
+			}
+
+			&_info,
+			&_filter input {
+				margin: 0px !important;
+				padding: 0px !important;
+				float: unset;
+				border: unset;
+				text-decoration: none;
+				outline: none;
+			}
+
+			&_filter {
+				grid-area: search;
+				justify-content: center;
+				margin: 0px;
+				min-height: 34px;
+				& > label {
+					font-weight: bold;
+					color: var(--datatable-input-forecolor);
+					position: relative;
+					height: 100%;
+					width: 100%;
+					& > .svg-icon {
+						position: absolute;
+						top: 50%;
+						left: 10px;
+						transform: translateY(-50%);
+						color: var(--text3);
+						font-size: 1rem;
+						font-weight: 600;
+					}
+					& > input {
+						height: 100%;
+						width: 100%;
+						padding: 0.25rem 0.5rem 0.25rem 2.15rem !important;
+						border: var(--datatable-input-border);
+						border-radius: 0.25rem;
+					}
+				}
+			}
+		}
+
+		& :is(.js-dt-toolbar__add, .js-dt-toolbar__filter, .js-dt-toolbar__export > .js-dropdown__button) {
+			background-color: var(--datatable-input-background);
+			border-radius: 0.25rem;
+			padding: 0.5rem 1.5rem;
+			cursor: pointer;
+			font-weight: 600;
+		}
+	}
+
+	&[data-view="simple-table"] {
+		& .js-dt-table.dataTable > tbody > tr:last-child {
+			box-shadow: unset;
+		}
+	}
+
+	&[data-view="backend-table"] {
+		& > .js-dt-toolbar {
+			grid-template-areas: unset;
+			grid-template-rows: unset;
+			grid-template-columns: unset;
+			@include flex-r(center);
+		}
+		& .dataTable {
+			& :is(th, td):last-child {
+				width: 1px !important;
+				& * {
+					margin: 0;
+				}
+			}
+			& td:last-child > div:not(.js-loading-spinner-pseudo) {
+				@include flex-r(flex-end, center);
+				& button {
+					padding: 0.325rem 0.5rem;
+					height: fit-content;
+				}
+				&:is([data-table-menu="inventario-productos"], [data-table-menu="inventario-embarques"]) {
+					& button {
+						padding: 0.325rem 0.35rem;
+						height: fit-content;
+					}
+				}
+			}
+		}
+	}
+}
+
+.js-dt-table {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.js-dt-table.dataTable {
+	margin: 0px !important;
+	max-width: none !important;
+	width: 100% !important;
+	border-radius: 0.5rem;
+	padding: 0rem !important;
+	border-collapse: separate !important;
+	border-spacing: 0;
+	opacity: 1;
+	visibility: visible;
+	/*table-layout: fixed;*/
+
+	&.no-footer {
+		border-bottom: unset !important;
+	}
+
+	&.print-table {
+		& > thead > tr > th:first-child,
+		& > tbody > tr > td:first-child {
+			padding-left: 10px;
+		}
+	}
+
+	& > thead {
+		& > tr {
+			position: sticky;
+			top: 0;
+			z-index: 2;
+			color: var(--text1);
+			font-weight: bold;
+			box-shadow: inset 0 -0.175rem 0 0 rgba(0, 0, 0, 0.175);
+			& :is(th, td) {
+				background-color: var(--datatable-header-background);
+				color: var(--datatable-header-forecolor);
+				padding: 8px 10px;
+				border-bottom: 1px solid transparent;
+				text-align: left;
+				/*&:first-child {
+					padding-left: 40px;
+				}*/
+				&:is(.sorting, .sorting_desc, .sorting_asc) {
+					background-image: unset !important;
+					position: relative;
+				}
+				&.sorting {
+					padding-right: 1.75rem;
+					&::after,
+					&::before {
+						@include fa-icon("", 1rem, var(--datatable-header-forecolor));
+						position: absolute;
+						top: 50%;
+						right: 5px;
+						transform: translateY(-50%);
+						opacity: 0;
+					}
+					&::before {
+						/*arrow down*/
+						content: "\f309";
+					}
+					&::after {
+						/*arrow up*/
+						content: "\f30c";
+					}
+				}
+				&.sorting_desc::before,
+				&.sorting_asc::after {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	& > tbody {
+		position: relative;
+		& tr {
+			&:is(.odd, .even) > td {
+				background-color: unset;
+			}
+			&.even:not(.js-datatable__loading) > td {
+				background-color: var(--datatable-row-even-background);
+			}
+			&:not(:is([class^="child"], .js-datatable__loading)) > td {
+				/*vertical-align: top;*/
+				&:first-child {
+					height: 3rem;
+				}
+			}
+
+			&.js-datatable__loading {
+				margin: 0px;
+				padding: 0px;
+				height: 0px;
+				& > td {
+					padding: 0;
+				}
+			}
+
+			&.js-datatable__loading > td > .js-loading-spinner-pseudo {
+				--spinner-w: 3.125rem;
+				--spinner-h: 3.125rem;
+				--spinner-border-width: 0.3125rem;
+				--spinner-color: var(--datatable-header-background);
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				/*background-color: var(--loading-spinner-backdrop);*/
+			}
+
+			&.child:last-child {
+				box-shadow: inset 0 -0.07rem 0 0 var(--datatable-row-bottom-border-color);
+			}
+
+			&:not(.js-datatable__loading):not(:only-child) {
+				box-shadow: inset 0 -0.07rem 0 0 var(--datatable-row-bottom-border-color);
+			}
+
+			&:not(.js-datatable__loading):not([class^="child"] tr) {
+				&:hover {
+					background-color: var(--datatable-row-hover-background);
+					z-index: 1;
+				}
+				&:last-child:hover {
+					border-radius: 0 0 0.5rem 0.5rem;
+				}
+			}
+
+			&.child > td.child {
+				padding: 0;
+				& > .slider {
+					padding: 0.25rem 0.45rem;
+					margin: 0.5rem 0.25rem;
+					/*box-shadow: -0.5px 0.5px 2px rgb(0 0 0 / 25%);*/
+					border: 1px solid var(--datatable-row-bottom-border-color);
+					border-radius: 0.5rem;
+					display: none;
+				}
+			}
+
+			& .dt-user-initials {
+				@include flex-r(null, center);
+				column-gap: 0.5rem;
+				& [data-name="initials"] {
+					min-width: 30px;
+					aspect-ratio: 1 / 1;
+					position: relative;
+					border: 1px solid #e7e7e7;
+					border-radius: 50%;
+					overflow: hidden;
+					background-color: var(--datatable-header-background);
+					&::after {
+						content: attr(data-value);
+						position: absolute;
+						top: 51%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						line-height: 80%;
+						font-weight: 500;
+						font-size: 12.5px;
+						color: var(--datatable-header-forecolor);
+					}
+				}
+				& [data-name="user"] {
+					width: auto;
+				}
+				& img {
+					display: none;
+				}
+				&[data-iamge="y"] {
+					& [data-name="initials"] {
+						display: none;
+					}
+					& img {
+						display: block;
+						min-width: 30px;
+						aspect-ratio: 1 / 1;
+						border: 1px solid #e7e7e7;
+						border-radius: 50%;
+					}
+				}
+			}
+
+			& > .js-datatable-actions {
+				& > .js-dropdown {
+					margin-inline: auto;
+					& > .js-dropdown__button {
+						cursor: pointer;
+						background-color: unset;
+						color: #000;
+						box-shadow: unset;
+						padding: 0.25rem 0.5rem;
+						& > .svg-icon {
+							width: 1.5rem;
+						}
+					}
+
+					& .js-dropdown__menu-item {
+						cursor: pointer;
+					}
+				}
+				/*& .dropdown-toggle {
+					padding: 0.45rem 0.75rem;
+					@include flex-c("", center);
+					cursor: pointer;
+					row-gap: 0.2rem;
+
+					&::before,
+					&::after {
+						display: none;
+					}
+
+					& > i {
+						color: var(--dt-row-dropdown-toggle);
+					}
+				}
+				& .dropdown-menu {
+					padding: 1rem 0.5rem;
+					& > .dropdown-item {
+						@include flex-r(flex-start, center);
+						column-gap: 0.5rem;
+						cursor: pointer;
+						min-height: 2.5rem;
+						background-color: transparent;
+						background: unset;
+						padding: 0.25rem 1rem;
+						font-weight: 600;
+						&[data-cmd="Delete"] > i {
+							font-size: 1rem;
+							min-width: 16.5px;
+						}
+						&[data-cmd="Edit"] > i {
+							font-size: 1rem;
+							min-width: 16.5px;
+						}
+					}
+				}*/
+			}
+		}
+	}
+
+	& .js-datatable__details {
+		& tr {
+			box-shadow: unset !important;
+			& > td {
+				padding: 0.5rem;
+				white-space: normal;
+				vertical-align: middle !important;
+			}
+			&:not(:last-child):not(:only-child) {
+				box-shadow: inset 0 -0.07rem 0 0 #cecece !important;
+			}
+		}
+	}
+
+	&.dtr-inline.collapsed > tbody > tr :is(td.dtr-control, th.dtr-control) {
+		.js-dt-table.dataTable > thead > tr > th:first-child {
+			padding-left: 40px;
+		}
+		padding-left: 40px;
+		&::before {
+			content: "";
+			width: 1.85em;
+			height: 1.85em;
+			box-sizing: border-box;
+			top: 50%;
+			left: 20px;
+			/*background-image: url(./find.png);*/
+			background-size: 1.5em 1.5em;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-color: #00cc44;
+			transform: translateX(-50%) translateY(-5%);
+			border-radius: 0.4rem;
+			transition: 0.3s ease all;
+		}
+		&:hover::before {
+			background-color: #00ee63;
+		}
+	}
+
+	&.dtr-inline.collapsed > tbody > tr.parent :is(td.dtr-control, th.dtr-control) {
+		&::before {
+			content: "";
+			background-color: #cc0000;
+		}
+		&:hover::before {
+			background-color: #f70000;
+		}
+	}
+}

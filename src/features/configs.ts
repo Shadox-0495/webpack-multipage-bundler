@@ -40,10 +40,8 @@ export function confDataTables(args: Object = {}) {
 					}).join("");
 					return data ? $("<div class='slider' />").append($("<table class='js-datatable__details' />").append(data)) : false;
 				},
-				display: (row: DataTables.RowMethods, update: any, render: Function) => {
-					if (update) {
-						return;
-					}
+				display: (row: DataTables.RowMethods, update: Boolean, render: Function) => {
+					if (update) return;
 
 					if (row.child.isShown()) {
 						$("div.slider", row.child()).slideUp(225, () => {
@@ -154,8 +152,8 @@ export function confDropZone(args: Object = {}) {
 		dictCancelUpload: "<i class='fa-solid fa-ban'></i>",
 		dictRemoveFile: "<i class='fa-solid fa-circle-xmark'></i>",
 		dictMaxFilesExceeded: "Se excedio la cantidad maxima de archivos.",
-		renameFile: (file: any) => {},
-		init: (file: any) => {},
+		renameFile: (file: File) => {},
+		init: (file: File) => {},
 	};
 	return mergeObjects(obj, args);
 }

@@ -68,15 +68,6 @@ export default {
 
 	module: {
 		rules: [
-			/*{
-				// typescript
-				test: /\.(js|mjs|jsx|ts|tsx)$$/,
-				loader: "esbuild-loader",
-				options: {
-					target: "es2017",
-				},
-				exclude: /node_modules/,
-			},*/
 			{
 				test: /\.ts?$/,
 				loader: "ts-loader",
@@ -88,8 +79,19 @@ export default {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+				test: /\.svg$/,
+				type: "asset/inline",
+				include: [path.resolve(__dirname, "./src/assets/img/")],
+				generator: {
+					dataUrl: (content) => {
+						return content.toString(); //return the icon svg file as plain text.
+					},
+				},
+			},
+			{
+				test: /\.(?:ico|gif|png|jpg|jpeg)$/,
 				type: "asset/resource",
+				include: [path.resolve(__dirname, "./src/assets/img/")],
 				generator: {
 					filename: "src/assets/images/[name].[ext]",
 				},
@@ -97,6 +99,7 @@ export default {
 			{
 				test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
 				type: "asset/resource",
+				include: [path.resolve(__dirname, "./src/assets/fonts/")],
 				generator: {
 					filename: "src/assets/fonts/[name].[ext]",
 				},
