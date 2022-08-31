@@ -1,14 +1,11 @@
 // https://piccalil.li/blog/a-modern-css-reset
 
 /* Box sizing rules */
+/* Remove default margin */
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
-}
-
-/* Remove default margin */
-* {
 	margin: 0;
 	padding: 0;
 }
@@ -22,15 +19,28 @@ ol[role="list"] {
 /* Set core root defaults */
 html:focus-within {
 	scroll-behavior: smooth;
+	color-scheme: var(--color-scheme);
 }
 
 /* Set core body defaults */
+html {
+	font-size: 12px;
+}
+html,
 body {
-	min-height: 100vh;
+	height: 100%;
+	width: 100%;
+}
+
+body {
 	text-rendering: optimizeSpeed;
 	line-height: 1.5;
-	width: 100%;
 	font-family: "Inter";
+	overflow-x: hidden;
+	-webkit-text-size-adjust: 100%;
+	padding: 1rem;
+	background-color: var(--main-background);
+	color: var(--main-color);
 }
 
 /* A elements that don't have a class get default styles */
@@ -43,6 +53,12 @@ img,
 picture {
 	max-width: 100%;
 	display: block;
+}
+
+svg {
+	fill: currentColor;
+	height: 100%;
+	width: 100%;
 }
 
 /* Inherit fonts for inputs and buttons */

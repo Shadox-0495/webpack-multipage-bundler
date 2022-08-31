@@ -1,6 +1,6 @@
 .js-dt-wrapper {
-	/*padding-bottom: 1rem;*/
-	margin: 1rem 1rem 0 1rem;
+	padding-bottom: 1rem;
+	/*margin: 1rem 1rem 0 1rem;*/
 	border-radius: 0.5rem;
 	border: 1px solid #e7e7e7;
 	background-color: var(--main-background);
@@ -302,25 +302,23 @@
 					padding-right: 1.75rem;
 					&::after,
 					&::before {
-						@include fa-icon("", 1rem, var(--datatable-header-forecolor));
 						position: absolute;
-						top: 50%;
+						top: 40%;
 						right: 5px;
 						transform: translateY(-50%);
 						opacity: 0;
 					}
-					&::before {
-						/*arrow down*/
-						content: "\f309";
-					}
 					&::after {
-						/*arrow up*/
-						content: "\f30c";
+						content: "\279D";
+						transition: transform 0.3s ease;
+						transform: rotate(-90deg);
 					}
 				}
-				&.sorting_desc::before,
-				&.sorting_asc::after {
+				&:is(.sorting_desc, .sorting_asc)::after {
 					opacity: 1;
+				}
+				&.sorting_desc::after {
+					transform: rotate(-90deg) rotateY(180deg);
 				}
 			}
 		}
@@ -519,8 +517,8 @@
 			box-sizing: border-box;
 			top: 50%;
 			left: 20px;
-			/*background-image: url(./find.png);*/
-			background-size: 1.5em 1.5em;
+			background-image: url("@img/search.svg");
+			background-size: 1.15em 1.15em;
 			background-position: center;
 			background-repeat: no-repeat;
 			background-color: #00cc44;

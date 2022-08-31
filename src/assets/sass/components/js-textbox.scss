@@ -1,0 +1,143 @@
+.js-textbox {
+	--label-bg-color: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0.35em 0.75em 0.625em 0.75em;
+	position: relative;
+	& > &__input {
+		border: 0;
+		border-bottom: 1.5px solid rgba(192, 192, 192, 0.863);
+		border-radius: 0;
+		padding: 0.5rem 0.5rem 0 0.5rem;
+		transition: border-bottom 0.3s ease;
+		height: 2.5rem;
+		width: 100%;
+		outline: none;
+		&::placeholder {
+			color: transparent;
+		}
+
+		&:is(:required, [required]) ~ .js-textbox__label::after {
+			content: "*";
+			color: var(--required-asterick-color);
+		}
+
+		&:placeholder-shown ~ .js-textbox__label {
+			cursor: text;
+			top: 50%;
+			font-size: 14px;
+		}
+
+		&:focus {
+			border-bottom: 1.5px solid var(--js-textbox-focus-border-color);
+			& ~ .js-textbox__label {
+				top: 0.25rem !important;
+				font-size: 11.5px;
+				color: var(--js-textbox-focus-border-color);
+			}
+		}
+	}
+	& > &__label {
+		position: absolute;
+		top: -0.5rem;
+		left: 0.5rem;
+		font-size: 11.5px;
+		padding: 2px 0.5rem;
+		transform: translateY(-50%);
+		background-color: var(--js-textbox-label-background-color);
+		transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+	}
+
+	&.outlined {
+		@include flex-r();
+		& > .js-textbox__input {
+			border-bottom: unset;
+			border: 1px solid rgba(192, 192, 192, 0.863);
+			border-radius: 0.5rem;
+			padding: 0 0.75rem;
+			&:placeholder-shown ~ .js-textbox__label {
+				cursor: text;
+				top: 50%;
+				font-size: 14px;
+			}
+			&:focus {
+				& ~ .js-textbox__label {
+					top: -0.65rem !important;
+					font-size: 11.5px;
+				}
+			}
+		}
+		& > .js-textbox__label {
+			--js-textbox-label-background-color: #fff;
+			top: -0.65rem;
+			left: 1rem;
+			padding: 0 0.5rem;
+		}
+	}
+
+	&.w-icon {
+		& > .svg-icon {
+			position: absolute;
+			bottom: 0.65rem;
+			left: 1.25rem;
+			transform: translateY(-50%);
+		}
+		& > .js-textbox__input {
+			padding-left: 2.25rem;
+			padding-top: 0.25rem;
+			padding-bottom: 0;
+			&:placeholder-shown ~ .js-textbox__label {
+				top: 50%;
+			}
+			&:focus {
+				& ~ .js-textbox__label {
+					top: -0.25rem !important;
+				}
+			}
+		}
+		& > .js-textbox__label {
+			top: -0.25rem;
+			left: 2.5rem;
+		}
+	}
+	&.js-txt-resize {
+		&.open > .js-textbox__label {
+			top: -0.65rem;
+			left: 1rem;
+			padding: 0 0.5rem;
+			font-size: 0.71875rem;
+		}
+		& > .js-textbox__label {
+			cursor: text;
+			top: 50%;
+			font-size: 14px;
+		}
+		& > .js-textbox__input {
+			min-height: 2.5rem;
+			height: fit-content;
+			line-height: 2.3rem;
+		}
+	}
+	&.js-char-counter {
+		&.open > .js-textbox__counter {
+			top: -0.65rem;
+			&::before {
+				font-size: 11.5px;
+			}
+		}
+
+		& > .js-textbox__counter {
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			font-size: 14px;
+			padding: 2px 0.5rem;
+			transform: translateY(-50%);
+			transition: top 0.3s ease, color 0.3s ease;
+			&::before {
+				transition: font-size 0.3s ease;
+				content: "[ " attr(data-char-count) " ]";
+			}
+		}
+	}
+}

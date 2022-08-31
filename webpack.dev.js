@@ -81,12 +81,18 @@ export default {
 			{
 				test: /\.svg$/,
 				type: "asset/inline",
-				include: [path.resolve(__dirname, "./src/assets/img/")],
+				include: [path.resolve(__dirname, "./src/assets/img/all-icons.svg")],
 				generator: {
 					dataUrl: (content) => {
-						return content.toString(); //return the icon svg file as plain text.
+						return content.toString(); //only all-icons.svg can be loaded as plain text for later beign inserted into the page's body as <svg>
 					},
 				},
+			},
+			{
+				test: /\.svg$/,
+				type: "asset/inline",
+				include: [path.resolve(__dirname, "./src/assets/img/")],
+				exclude: /\b(all-icons)\.svg$/, //exclude the all-icons.svg so it doesn't load as base64 or any other encode
 			},
 			{
 				test: /\.(?:ico|gif|png|jpg|jpeg)$/,

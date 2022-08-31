@@ -1,0 +1,56 @@
+:root {
+	--main-color: hsl(226, 100%, 9%);
+	--main-background: hsl(0, 0%, 95%);
+
+	--required-icon-color: #dc3545; /*mostly for the textbox's asterisk "*" */
+
+	--textbox-background-color: var(--main-background);
+	--textbox-text-color: var(--main-color);
+	--textbox-border-color: #333;
+
+	--button-primary-background-color: var(--main-background);
+	--button-primary-text-color: var(--main-color);
+	--button-primary-border-color: #333;
+	--button-primary-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-primary-hover-background-color: var(--button-primary-background-color);
+	--button-primary-hover-text-color: var(--button-primary-text-color);
+	--button-primary-hover-border-color: var(--button-primary-border-color);
+
+	--button-success-background-color: #28a745;
+	--button-success-text-color: #fff;
+	--button-success-border-color: transparent;
+	--button-success-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-success-hover-background-color: #1e7e34;
+	--button-success-hover-text-color: #fff;
+	--button-success-hover-border-color: transparent;
+
+	--button-warning-background-color: var(--main-background);
+	--button-warning-text-color: var(--main-color);
+	--button-warning-border-color: #333;
+	--button-warning-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-warning-hover-background-color: var(--button-warning-background-color);
+	--button-warning-hover-text-color: var(--button-warning-text-color);
+	--button-warning-hover-border-color: var(--button-warning-border-color);
+
+	--button-danger-background-color: #dc3545;
+	--button-danger-text-color: #fff;
+	--button-danger-border-color: transparent;
+	--button-danger-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-danger-hover-background-color: #c82333;
+	--button-danger-hover-text-color: #fff;
+	--button-danger-hover-border-color: transparent;
+
+	--button-disabled-background-color: var(--main-background);
+	--button-disabled-text-color: var(--main-color);
+	--button-disabled-border-color: #333;
+	--button-disabled-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	--button-disabled-hover-background-color: var(--button-disabled-background-color);
+	--button-disabled-hover-text-color: var(--button-disabled-text-color);
+	--button-disabled-hover-border-color: var(--button-disabled-border-color);
+
+	--select-background-color: var(--main-background);
+	--select-text-color: var(--main-color);
+	--select-border-color: #333;
+
+	--datatable-container-background-color: var(--main-background);
+}

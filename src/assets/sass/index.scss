@@ -1,7 +1,14 @@
+@import "./main/colors.scss";
 @import "./main/reset.scss";
 @import "./main/mixins.scss";
 @import "./main/fonts.scss";
+@import "./main/svg-icons.scss";
+@import "./main/textboxs.scss";
+@import "./main/buttons.scss";
+@import "./main/selects.scss";
 
-@import "./blocks/js-datatables.scss";
+@import "./components/js-textbox.scss";
+@import "./components/js-dropdown.scss";
+@import "./components/js-datatables.scss";
 
 @import "./responsive/responsive.scss";

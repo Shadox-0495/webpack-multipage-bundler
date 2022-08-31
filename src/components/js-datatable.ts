@@ -5,7 +5,9 @@ import "datatables.net";
 import "datatables.net-responsive";
 import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
-import { mergeObjects, confDataTables } from "@features/configs";
+import { mergeObjects, confDataTables, confSweetAlert } from "@features/configs";
+
+import Swal from "sweetalert2";
 
 export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: any = {}) {
 	if ($htmlTable.length == 0 || $htmlTable.length > 1 || typeof $htmlTable == undefined) return;
@@ -322,23 +324,29 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 			//reference the DataTable's wrapper
 			let dataTableContainer = $htmlTable.closest(".dataTables_wrapper");
 			dataTableContainer.addClass("js-dt-wrapper").attr("data-view", `${type}`);
-			return dataTable;
-			/*dataTable.on("error.dt", function (e, settings, techNote, message) {
-				Swal.fire(cFormats.sweetalert("", "error", message, { showConfirmButton: true }));
+			dataTable.on("error.dt", function (e, settings, techNote, message) {
+				Swal.fire(confSweetAlert("", "error", message, { showConfirmButton: true }));
 				return;
 			});
-			$(`#dtFilter_${tableId}`)
+			/*$(`#dtFilter_${tableId}`)
 				.find("[data-cmd='apply-filters']")
 				.attr({ "data-toggle": "modal", "data-target": `#dtFilter_${tableId}` })
 				.on("click", () => {
 					dataTable.ajax.reload();
-				});
+				});*/
 			dataTableContainer.find(".dataTables_filter>label").prepend(`<div class="svg-icon"><svg viewBox="0 0 17 17"> <use xlink:href="#svg-search"></use></svg></div>`); //adds search icon
+
 			dataTableContainer.find(".dataTables_filter input").addClass("js-dt-toolbar__search");
-			dataTableContainer
-				.find(".js-dt-toolbar__export")
-				.prepend(`<div class='js-dropdown__button' data-toggle='dropdown' data-target='parent(1)'><div class="svg-icon"><svg viewBox="0 0 18 18"> <use xlink:href="#svg-download"></use></svg></div><span>Exportar</span></div>`);
+
+			dataTableContainer.find(".js-dt-toolbar__export").prepend(`<div class='js-dropdown__button' data-toggle='dropdown' data-target='parent(1)'>
+																			<div class="svg-icon">
+																				<svg viewBox="0 0 18 18"> <use xlink:href="#svg-download"></use></svg>
+																			</div>
+																			<span>Exportar</span>
+																		</div>`);
+
 			dataTableContainer.find(".dt-button").addClass("js-dropdown__menu-item");
+
 			dataTableContainer
 				.find(".js-dt-toolbar__filter")
 				.append(
@@ -349,7 +357,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				)
 				.attr({ "data-toggle": "modal", "data-target": `#dtFilter_${tableId}` });
 			dataTableContainer.find(".js-dt-toolbar__add").append(`<div class="svg-icon"><svg viewBox="-1 -1.5 15 15"> <use xlink:href="#svg-plus"></use></svg></div><span>Nuevo registro</span>`);
-			return dataTable;*/
+			return dataTable;
 		},
 	};
 }

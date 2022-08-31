@@ -66,10 +66,10 @@ export function confDataTables(args: Object = {}) {
 		language: {
 			lengthMenu: "_MENU_",
 			paginate: {
-				first: `<i class="fa-solid fa-angles-left"></i>`,
-				previous: `<i class="fa-solid fa-angle-left"></i>`,
-				next: `<i class="fa-solid fa-angle-right"></i>`,
-				last: `<i class="fa-solid fa-angles-right"></i>`,
+				first: `<div class="svg-icon"><svg viewBox="-4 -3 18 18"> <use xlink:href="#svg-angle-double-left"></use></svg></div>`,
+				previous: `<div class="svg-icon"><svg viewBox="-4 -3 18 18"> <use xlink:href="#svg-angle-left"></use></svg></div>`,
+				next: `<div class="svg-icon"><svg viewBox="-4 -3 18 18"> <use xlink:href="#svg-angle-right"></use></svg></div>`,
+				last: `<div class="svg-icon"><svg viewBox="-4 -3 18 18"> <use xlink:href="#svg-angle-double-right"></use></svg></div>`,
 			},
 			infoEmpty: "Sin registros.",
 			zeroRecords: "Sin registros.",
