@@ -16,16 +16,17 @@ const generateHtmlPlugin = (args) => {
 };
 
 let entry = {};
+entry["shared"] = { import: ["@features/icons-loader.ts"] };
 //loop through the pages folder and create a new html webpack plugin for each one
 let plugins = fs.readdirSync(path.resolve(__dirname, "./src/pages/")).map((file) => {
 	let name = file.split(".")[0];
-	entry[name] = `@ts/${name}.ts`;
+	entry[name] = { import: `@ts/${name}.ts` };
 	return generateHtmlPlugin({
 		pageTitle: name == "index" ? "Login" : name,
 		pageName: name,
 		filename: file,
 		template: path.resolve(__dirname, `./src/pages/${file}`),
-		chunks: [name],
+		chunks: [name, "shared"],
 	});
 });
 
@@ -101,7 +102,7 @@ export default {
 						if (module.context.indexOf("node_modules") === -1) return false;
 						const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
 						// npm package names are URL-safe, but some servers don't like @ symbols
-						return `npm.${packageName.replace("@", "")}`;
+						return `vendors/npm.${packageName.replace("@", "")}`;
 					},
 				},
 				//combiar todo el css en un solo archivo
@@ -122,11 +123,6 @@ export default {
 			{
 				test: /\.ts?$/,
 				loader: "ts-loader",
-				options: {
-					compilerOptions: {
-						outDir: "./dist",
-					},
-				},
 				exclude: /node_modules/,
 			},
 			{

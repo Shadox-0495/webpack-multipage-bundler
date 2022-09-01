@@ -1,6 +1,8 @@
 {
 	"extends": "./tsconfig.path.json",
 	"compilerOptions": {
+		"strict": true, //research
+		"moduleResolution": "node", //research
 		"outDir": "./dist/",
 		"noImplicitAny": true,
 		"module": "es2022",
@@ -10,9 +12,7 @@
 		"skipLibCheck": true, //research
 		"esModuleInterop": true, //research
 		"allowSyntheticDefaultImports": true, //research
-		"strict": true, //research
 		"forceConsistentCasingInFileNames": true, //research
-		"moduleResolution": "node", //research
 		"resolveJsonModule": true, //research
 		"isolatedModules": true //research
 	}
