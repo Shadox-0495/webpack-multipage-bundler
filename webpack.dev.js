@@ -5,6 +5,7 @@ import Dotenv from "dotenv-webpack";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import { loader } from "mini-css-extract-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,7 +52,7 @@ export default {
 	target: ["web", "es5"],
 	devServer: {
 		historyApiFallback: true,
-		static: path.resolve(__dirname, "./dist"),
+		static: path.resolve(__dirname, "./"),
 		open: true,
 		compress: true,
 		hot: true,
@@ -111,7 +112,7 @@ export default {
 					filename: "src/assets/fonts/[name].[ext]",
 				},
 			},
-			{
+			/*{
 				test: /\.html$/,
 				type: "asset/inline",
 				include: [path.resolve(__dirname, "./src/assets/templates/")],
@@ -120,6 +121,10 @@ export default {
 						return content.toString(); //get all the templates files from the html into plain text to be loaded using js and append to body
 					},
 				},
+			},*/
+			{
+				test: /\.hbs$/,
+				loader: "handlebars-loader",
 			},
 			{
 				test: /\.(sa|sc|c)ss$/,
