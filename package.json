@@ -22,6 +22,7 @@
 		"cypress": "^10.6.0",
 		"dotenv-webpack": "^8.0.1",
 		"esbuild-loader": "^2.19.0",
+		"handlebars-loader": "^1.7.2",
 		"html-webpack-plugin": "^5.5.0",
 		"mini-css-extract-plugin": "^2.6.1",
 		"postcss-loader": "^7.0.1",
@@ -42,6 +43,7 @@
 		"datatables.net-dt": "^1.12.1",
 		"datatables.net-responsive": "^2.3.0",
 		"datatables.net-responsive-dt": "^2.3.0",
+		"handlebars": "^4.7.7",
 		"jquery": "^3.6.0",
 		"select2": "^4.1.0-rc.0",
 		"sweetalert2": "^11.4.29"

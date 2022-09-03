@@ -1,0 +1,26 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{{htmlWebpackPlugin.options.pageTitle}}</title>
+	</head>
+	<body data-page="{{htmlWebpackPlugin.options.pageName}}">
+		<nav id="page-navbar"></nav>
+		{{> ../partials/all-icons}}
+		<section id="page-content">
+			<table id="table-shipments" class="js-dt-table" data-type="filter">
+				<thead>
+					<tr>
+						<th class="none" data-type="id" data-name="t1.ID">ID</th>
+						<th class="none" data-type="int" data-name="t2.Num">ContenedorID</th>
+						<th class="all" data-type="string" data-name="t1.Embarque">Embarque</th>
+						<th class="all" data-type="string" data-name="t2.Codigo">Contenedor</th>
+						<th class="all" data-type="string" data-name="t3.Nombre">Bodega</th>
+						<th class="all" data-name="-1"></th>
+					</tr>
+				</thead>
+			</table>
+		</section>
+	</body>
+</html>

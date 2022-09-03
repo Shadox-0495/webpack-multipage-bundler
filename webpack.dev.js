@@ -15,7 +15,7 @@ const generateHtmlPlugin = (args) => {
 };
 
 let entry = {};
-entry["icons-loader"] = { import: ["@features/icons-loader.ts"] };
+entry["shared"] = { import: ["@features/page-global-events.ts"] };
 //loop through the pages folder and create a new html webpack plugin for each one
 let plugins = fs.readdirSync(path.resolve(__dirname, "./src/pages/")).map((file) => {
 	let name = file.split(".")[0];
@@ -23,9 +23,8 @@ let plugins = fs.readdirSync(path.resolve(__dirname, "./src/pages/")).map((file)
 	return generateHtmlPlugin({
 		pageTitle: name == "index" ? "Login" : name,
 		pageName: name,
-		filename: file,
-		template: path.resolve(__dirname, `./src/pages/${file}`),
-		chunks: [name, "icons-loader"],
+		template: path.resolve(__dirname, `./src/pages/index.hbs`),
+		chunks: [name, "shared"],
 	});
 });
 //push the global variable of the jquery library to the webpack bundle
@@ -114,6 +113,10 @@ export default {
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+			},
+			{
+				test: /\.hbs$/,
+				use: ["handlebars-loader"],
 			},
 		],
 	},

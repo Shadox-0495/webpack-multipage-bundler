@@ -264,6 +264,7 @@
 	border-spacing: 0;
 	opacity: 1;
 	visibility: visible;
+	font-size: inherit;
 	/*table-layout: fixed;*/
 
 	&.no-footer {
@@ -492,6 +493,7 @@
 	}
 
 	& .js-datatable__details {
+		font-size: inherit;
 		& tr {
 			box-shadow: unset !important;
 			& > td {
