@@ -157,20 +157,6 @@ export default {
 					filename: "src/assets/fonts/[name].[ext]",
 				},
 			},
-			/*{
-				test: /\.html$/,
-				type: "asset/inline",
-				include: [path.resolve(__dirname, "./src/assets/templates/")],
-				generator: {
-					dataUrl: (content) => {
-						return content.toString(); //get all the templates files from the html into plain text to be loaded using js and append to body
-					},
-				},
-			},*/
-			{
-				test: /\.hbs$/,
-				loader: "handlebars-loader",
-			},
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],

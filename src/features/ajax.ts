@@ -1,28 +1,28 @@
 import { mergeObjects, confSweetAlert } from "@features/configs";
 import Swal from "sweetalert2";
 
-export async function ajaxGET(data: any = {}, url: string, args: JQueryAjaxSettings = {}) {
+export async function ajaxGET(url: string, args: JQueryAjaxSettings = {}, data: any = {}) {
 	let obj: JQueryAjaxSettings = { type: "GET", url: url };
 	if (Object.keys(data).length !== 0) obj.data = JSON.stringify(data);
 	obj = mergeObjects(obj, args);
 	return createAjax(obj);
 }
 
-export async function ajaxPOST(data: any = {}, url: string, args: JQueryAjaxSettings = {}) {
+export async function ajaxPOST(url: string, args: JQueryAjaxSettings = {}, data: any = {}) {
 	let obj: JQueryAjaxSettings = { type: "POST", url: url };
 	if (Object.keys(data).length !== 0) obj.data = JSON.stringify(data);
 	obj = mergeObjects(obj, args);
 	return createAjax(obj);
 }
 
-export async function ajaxPUT(data: any = {}, url: string, args: JQueryAjaxSettings = {}) {
+export async function ajaxPUT(url: string, args: JQueryAjaxSettings = {}, data: any = {}) {
 	let obj: JQueryAjaxSettings = { type: "PUT", url: url };
 	if (Object.keys(data).length !== 0) obj.data = JSON.stringify(data);
 	obj = mergeObjects(obj, args);
 	return createAjax(obj);
 }
 
-export async function ajaxDELETE(data: any = {}, url: string, args: JQueryAjaxSettings = {}) {
+export async function ajaxDELETE(url: string, args: JQueryAjaxSettings = {}, data: any = {}) {
 	let obj: JQueryAjaxSettings = { type: "DELETE", url: url };
 	if (Object.keys(data).length !== 0) obj.data = JSON.stringify(data);
 	obj = mergeObjects(obj, args);
