@@ -1,6 +1,7 @@
 import Handlebars from "handlebars";
+import template from "@assets/templates/templates.html";
 import { ajaxGET } from "@features/ajax";
-let [templatesHtml, templatesError] = await ajaxGET("/src/assets/templates/templates.html", { contentType: "", dataType: "text" });
+let [templatesHtml, templatesError] = await ajaxGET(template, { contentType: "", dataType: "text" });
 if (templatesError) console.log(`Error while fetching the templates:${templatesError}`);
 templatesHtml = new DOMParser().parseFromString(templatesHtml, "text/html");
 

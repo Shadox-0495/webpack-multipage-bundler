@@ -18,13 +18,13 @@ const generateHtmlPlugin = (args) => {
 let entry = {};
 entry["shared"] = { import: ["@features/page-global-events.ts"] };
 //loop through the pages folder and create a new html webpack plugin for each one
-let plugins = fs.readdirSync(path.resolve(__dirname, "./src/pages/")).map((file) => {
+let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/pages/")).map((file) => {
 	let name = file.split(".")[0];
-	entry[name] = { import: `@ts/${name}.ts` };
+	entry[name] = { import: `@ts/pages/${name}.ts` };
 	return generateHtmlPlugin({
 		pageTitle: name == "index" ? "Login" : name,
 		pageName: name,
-		template: path.resolve(__dirname, `./src/pages/index.hbs`),
+		template: path.resolve(__dirname, `./src/partials/index.hbs`),
 		chunks: [name, "shared"],
 	});
 });
@@ -165,6 +165,14 @@ export default {
 			{
 				test: /\.hbs$/,
 				use: ["handlebars-loader"],
+			},
+			{
+				test: /\.html$/,
+				type: "asset/resource",
+				include: [path.resolve(__dirname, "./src/assets/templates/")],
+				generator: {
+					filename: "src/assets/templates/[base]",
+				},
 			},
 		],
 	},
