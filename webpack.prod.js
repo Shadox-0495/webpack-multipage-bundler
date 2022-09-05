@@ -92,6 +92,15 @@ export default {
 			maxInitialRequests: Infinity,
 			minSize: 0,
 			cacheGroups: {
+				//combiar todo el vendor(css de librerias js) en un solo archivo
+				styles: {
+					name: "vendors",
+					test: /\.css$/,
+					chunks: "all",
+					minChunks: 1,
+					reuseExistingChunk: true,
+					enforce: true,
+				},
 				vendor: {
 					test: /[\\/]node_modules[\\/]/,
 					name(module) {
@@ -103,15 +112,6 @@ export default {
 						// npm package names are URL-safe, but some servers don't like @ symbols
 						return `vendors/npm.${packageName.replace("@", "")}`;
 					},
-				},
-				//combiar todo el css en un solo archivo
-				styles: {
-					name: "styles",
-					test: /\.s?css$/,
-					chunks: "all",
-					minChunks: 1,
-					reuseExistingChunk: true,
-					enforce: true,
 				},
 			},
 		},
@@ -153,7 +153,9 @@ export default {
 				type: "asset/resource",
 				include: [path.resolve(__dirname, "./src/assets/fonts/")],
 				generator: {
-					filename: "src/assets/fonts/[name].[ext]",
+					filename(file) {
+						return file.filename;
+					},
 				},
 			},
 			{
