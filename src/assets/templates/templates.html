@@ -1,11 +1,13 @@
-<script type="text/x-handlebars-template" id="datatableTempalte">
-	<table id="{{tableID}}" class="js-dt-table {{tableClass}}" data-type="{{tableType}}">
+<script type="text/x-handlebars-template" id="dataTable">
+	<table id="{{id}}" class="js-dt-table {{class}}" data-type="{{type}}">
 		<thead>
-			<tr>
-	               {{#each columns}}
-	                   <th {{#if this.columnClass}}class="{{columnClass}}"{{/if}} {{#if this.columnType}}data-type="{{columnType}}"{{/if}}  {{#if this.columnID}}data-name="{{columnID}}"{{/if}}>{{ColumnText}}</th>
-	               {{/each}}
-			</tr>
+			{{#each haderRows}}
+				<tr>
+					{{#each this}}
+						<th class="{{class}}" data-type="{{type}}" data-name="{{id}}">{{label}}</th>
+					{{/each}}
+				</tr>
+			{{/each}}
 		</thead>
 	</table>
 </script>

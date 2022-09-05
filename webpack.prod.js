@@ -178,6 +178,7 @@ export default {
 			"@features": path.resolve(__dirname, "./src/features/"),
 			"@sass": path.resolve(__dirname, "./src/assets/sass/"),
 			"@img": path.resolve(__dirname, "./src/assets/img/"),
+			handlebars: "handlebars/dist/handlebars.min.js",
 		},
 	},
 
