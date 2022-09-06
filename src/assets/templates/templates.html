@@ -11,3 +11,16 @@
 		</thead>
 	</table>
 </script>
+
+<script type="text/x-handlebars-template" id="modal">
+	<div class="js-modal__content">
+		<div class="js-modal__content-header">
+			<h5 class="js-modal__content-header-title">{{title}}</h5>
+			<button class="js-modal__content-header-close-btn" data-type="danger" data-toggle="modal" data-target="parent(3)">
+				<div class="svg-icon"><svg viewBox="-1 -1.5 14 14"><use xlink:href="#svg-times"></use></svg></div>
+			</button>
+		</div>
+		<div class="js-modal__content-body"></div>
+		<div class="js-modal__content-footer"></div>
+	</div>
+</script>

@@ -14,7 +14,7 @@ export function confDataTables(args: Object = {}) {
 					<'js-dt-toolbar__export js-dropdown'B>
 					<'js-dt-toolbar__info'li>
 			   >
-			   <t>
+			   <'js-dt-container't>
 			   p`,
 		pagingType: "full_numbers",
 		deferRender: true,
@@ -157,7 +157,7 @@ export function confDropZone(args: Object = {}) {
 	};
 	return mergeObjects(obj, args);
 }
-export function confSelect2(args: Object = {}) {
+export function confSelect2(args: any = {}) {
 	let obj = {
 		dropdownCssClass: "js-select2-dropdown",
 		multiple: false,

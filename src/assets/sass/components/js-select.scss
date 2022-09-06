@@ -1,0 +1,117 @@
+.select2-search__field {
+	outline: none;
+}
+
+.select2-container.select2-container--default {
+	&.js-select2 {
+		height: 2.5rem;
+		width: 100% !important;
+		& > .selection {
+			height: 100%;
+			display: block;
+		}
+		& .select2-selection--single {
+			height: 100%;
+			border-radius: 0.35rem;
+			& .select2-selection__rendered {
+				height: 100%;
+				padding-top: 0.2rem;
+				@include flex-r(null, center);
+				@include truncate-text();
+			}
+			& .select2-selection__arrow {
+				top: 50%;
+				transform: translateY(-50%) translateX(-2px);
+				@include flex-c(center, center);
+				&::after {
+					@include fa-icon("\f107");
+					color: var(--main-forecolor);
+					transition: transform 0.3s ease;
+				}
+				& > [role="presentation"] {
+					display: none;
+				}
+			}
+		}
+
+		& .select2-selection--multiple {
+			height: 100%;
+			border-radius: 0.35rem;
+			& .select2-selection__rendered {
+				height: 100%;
+				padding-top: 0.2rem;
+				& .select2-search--inline {
+					height: 100%;
+					& > .select2-search__field {
+						height: 100%;
+						margin: 0;
+					}
+				}
+			}
+		}
+
+		&.select2-container--open {
+			& .select2-selection--single .select2-selection__arrow::after {
+				transform: rotateX(180deg);
+			}
+			& .select2-selection--multiple .select2-selection__arrow::after {
+				transform: rotateX(180deg);
+			}
+		}
+	}
+
+	& > .js-select2-dropdown {
+		& > .select2-search {
+			position: relative;
+			& > .svg-icon {
+				position: absolute;
+				top: 50%;
+				left: 1rem;
+				transform: translateY(-50%);
+				color: var(--icon-color);
+			}
+			& > .select2-search__field {
+				padding-left: 2.25rem;
+			}
+		}
+		& .select2-results__options {
+			@include scrollbar(#fff);
+		}
+
+		&.js-select2-dropdown--multiple {
+			& .select2-results__option {
+				color: var(--main-forecolor);
+				@include flex-r(null, center);
+				column-gap: 0.5rem;
+				word-break: break-all;
+				&:hover {
+					opacity: 0.75;
+				}
+				&::before {
+					@include fa-icon("\f00c");
+					border: 1px solid var(--button-border-color);
+					min-width: 20px;
+					max-width: 20px;
+					min-height: 20px;
+					max-height: 20px;
+					border-radius: 0.35rem;
+					@include flex-c(center, center);
+					content: "";
+					align-self: flex-start;
+				}
+				&[aria-selected="true"] {
+					background-color: transparent;
+					&::before {
+						content: "\f00c";
+						background-color: var(--checkbox-selected-background);
+						color: var(--checkbox-selected-text);
+					}
+				}
+				&--highlighted {
+					background-color: transparent;
+					color: var(--main-forecolor);
+				}
+			}
+		}
+	}
+}

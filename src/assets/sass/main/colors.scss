@@ -1,6 +1,7 @@
 :root {
 	--main-color: hsl(226, 100%, 9%);
 	--main-background: hsl(0, 0%, 95%);
+	--main-border-color: hsl(0, 0%, 80%);
 
 	--required-icon-color: #dc3545; /*mostly for the textbox's asterisk "*" */
 
@@ -52,5 +53,40 @@
 	--select-text-color: var(--main-color);
 	--select-border-color: #333;
 
-	--datatable-container-background-color: var(--main-background);
+	--datatable-container-background: var(--main-background);
+	--datatable-container-border: 1px solid #e7e7e7;
+
+	--datatable-toolbar-background: hsl(218, 39%, 53%);
+	--datatable-toolbar-text: hsl(0, 0%, 100%);
+	--datatable-toolbar-input-background: hsl(0, 0%, 100%);
+	--datatable-toolbar-input-text: hsl(0, 0%, 0%);
+	--datatable-toolbar-input-border: 1px solid transparent;
+
+	--datatable-pagination-button-text: hsl(221, 15%, 25%);
+	--datatable-pagination-button-disabled-text: hsl(0, 0%, 81%);
+	--datatable-pagination-button-disabled-hover-text: hsl(0, 0%, 76%);
+
+	--datatable-row-even-background: transparent;
+	--datatable-row-bottom-border-color: hsl(0, 0%, 91%);
+	--datatable-row-details-box-shadow: inset 0 -0.07rem 0 0 #cecece;
+
+	--datatable-details-close: #00cc44;
+	--datatable-details-close-hover: #00ee63;
+
+	--datatable-details-open: #cc0000;
+	--datatable-details-open-hover: #f70000;
+
+	/*
+	--datatable-row-bottom-border-color: hsl(0, 0%, 91%);
+	--datatable-row-hover-background: hsl(0, 0%, 92%);
+
+	--text1: hsl(228, 33%, 97%);
+	--text2: hsl(221, 15%, 25%);
+	--text3: hsl(0, 0%, 67%);
+	--text4: hsl(0, 0%, 81%);
+
+	--icon-color: hsl(0, 0%, 67%);
+
+	--js-textbox-label-background-color: transparent;
+	--js-textbox-focus-border-color: hsl(209, 100%, 30%);*/
 }

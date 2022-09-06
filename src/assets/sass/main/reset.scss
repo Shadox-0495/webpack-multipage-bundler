@@ -8,6 +8,9 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	font: inherit;
+	font-weight: 400;
+	line-height: 1.3rem;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -24,7 +27,7 @@ html:focus-within {
 
 /* Set core body defaults */
 html {
-	font-size: 12px;
+	font-size: 11px;
 }
 html,
 body {
@@ -41,6 +44,7 @@ body {
 	padding: 1rem;
 	background-color: var(--main-background);
 	color: var(--main-color);
+	font-size: 1rem;
 }
 
 /* A elements that don't have a class get default styles */
@@ -62,12 +66,12 @@ svg {
 }
 
 /* Inherit fonts for inputs and buttons */
-input,
+/*input,
 button,
 textarea,
 select {
 	font: inherit;
-}
+}*/
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {

@@ -7,6 +7,8 @@ import "datatables.net-responsive";
 import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
 import { mergeObjects, confDataTables, confSweetAlert } from "@features/configs";
+import { loadModals } from "@features/templates-loader";
+import { serverSelect2 } from "@components/js-select";
 
 import Swal from "sweetalert2";
 
@@ -33,7 +35,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 	conf.columns = columns;
 
 	let tableTypes: any = {
-		filter: () => {
+		filter: async () => {
 			/*conf.drawCallback = (settings: any) => {
 				if (settings._iDisplayStart != tableStart) {
 					var targetOffset = tableStart;
@@ -90,15 +92,14 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				},
 			});
 
-			/*$("body").append(`<div class="js-modal" data-title="Filtros" data-modal="" id="dtFilter_${tableId}"></div>`);
-			await modalLoader();
-			$(`#dtFilter_${tableId}`).addClass("js-datatable__modal");
+			$("body").append(`<div class="js-modal js-datatable__modal" data-title="Filtros" data-modal="" id="dtFilter_${tableId}"></div>`);
+			await loadModals();
 			$(`#dtFilter_${tableId}`).find(".js-modal__content-footer").append(`<button data-type="success" data-cmd='apply-filters'>Aplicar</button>`);
 			let modalBody = $(`#dtFilter_${tableId}`).find(".js-modal__content-body");
 			modalBody.append(`<ul class="dt-filter-container"><li class="dt-filter-container__item" data-name="empty">Sin Filtros</li></ul>`);
 			modalBody.append(`<button data-type="success" data-cmd='add-filter'><div class="svg-icon"><svg viewBox="-1 -1.5 15 15"> <use xlink:href="#svg-plus"></use></svg></div><span>Agregar Filtro</span></button>`);
 
-			let controls = {
+			let controls: any = {
 				date: () => {
 					return `<label class="js-textbox outlined" data-date="start">
 								<input class="js-textbox__input js-datepicker" data-name="value" type="text" placeholder="Desde">
@@ -121,11 +122,13 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				},
 			};
 
-			let filter = {
-				"add-filter": (el) => {
+			let filter: any = {
+				"add-filter": (el: any) => {
 					let options = "";
-					availableFields.forEach((field) => {
-						options += `<option value="${field.name}" data-type="${field.type}">${field.text}</option>`;
+					columns.map((index: number, field) => {
+						let { name, type, text } = field;
+						if (name == "-1") return false;
+						options += `<option value="${name}" data-type="${type}">${text}</option>`;
 					});
 					modalBody.find(">.dt-filter-container").append(`
 						<li class="dt-filter-container__item" data-value-type="">
@@ -143,26 +146,27 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 						</li>
 					`);
 				},
-				"delete-filter": (el) => {
-					let filter = el.closest(".dt-filter-container__item");
-					if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
-					if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");
+				"delete-filter": (el: any) => {
+					let filter = $(el.closest(".dt-filter-container__item"));
+					/*if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
+					if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");*/
 					filter.remove();
 				},
-				"add-controls": (el) => {
-					let valueType = el.find(":selected").attr("data-type");
+				"add-controls": (el: any) => {
+					el = $(el);
+					let valueType: any = el.find(":selected").attr("data-type");
 					if (valueType == "null") return;
 					let container = el.closest(".dt-filter-container");
 					let column = el.val();
 					let duplicated = false;
-					container.find(`select[data-name="column-select"]`).each((index, element) => {
+					container.find(`select[data-name="column-select"]`).each((index: Number, element: any) => {
 						if (element == el[0]) return;
 						duplicated = $(element).val() == column;
 						if (duplicated) return false;
 					});
 					if (duplicated) {
 						el.val("");
-						Swal.fire(cFormats.sweetalert("", "error", `Esa columna ya esta seleccionada.`, { timer: 3000 }));
+						Swal.fire(confSweetAlert("", "error", `Esa columna ya esta seleccionada.`, { timer: 3000 }));
 						return;
 					}
 					let filter = el.closest(".dt-filter-container__item");
@@ -180,52 +184,57 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 						if (filter.find(`ul[data-name="db-dt-filter-list"]`).length == 0) filter.find(">.dt-filter-container__item_header").append(`<ul data-name="db-dt-filter-list"></ul>`);
 						let searchOptions = filter.find(`ul[data-name="db-dt-filter-list"]`);
 						let select = filter.find("[data-name='value']");
-						let params = {
-							module: extraParams.module,
-							action: extraParams.action,
+						let params: any = {
+							module: ajaxArgs.module,
+							action: ajaxArgs.action,
 							type: "select2",
 							column: column,
 						};
-						if (extraParams.reportName) params.reportName = extraParams.reportName;
-						if (extraParams.maintenanceCategory) params.maintenanceCategory = extraParams.maintenanceCategory;
-						customSelect2(select, "api/api.php", params).init({
-							placeholder: "Buscar",
-							dropdownParent: filter.find(">.dt-filter-container__item_body"),
-							closeOnSelect: false,
-							multiple: true,
-						});
+						if (ajaxArgs.reportName) params.reportName = ajaxArgs.reportName;
+						if (ajaxArgs.maintenanceCategory) params.maintenanceCategory = ajaxArgs.maintenanceCategory;
+						serverSelect2(
+							select,
+							{
+								placeholder: "Buscar",
+								dropdownParent: filter.find(">.dt-filter-container__item_body"),
+								closeOnSelect: false,
+								multiple: true,
+							},
+							`${process.env.API_URL}/api.php`,
+							params
+						);
 						let searchBox = filter.find(`input[type="search"]`);
 						if (searchBox.parent().find(">.svg-icon").length == 0) searchBox.parent().prepend(`<div class="svg-icon"><svg viewBox="0 0 17 17"> <use xlink:href="#svg-search"></use></svg></div>`);
 						select
-							.on("select2:select", (e) => {
+							.on("select2:select", (e: any) => {
 								setTimeout(() => {
 									searchBox.attr("placeholder", "Buscar");
 								}, 5);
 							})
-							.on("select2:selecting", (e) => {
+							.on("select2:selecting", (e: any) => {
 								searchOptions.append(`<li data-value="${e.params.args.data.id}"> <div class="svg-icon" data-cmd="delete-option"><svg viewBox="0 0 12 12"> <use xlink:href="#svg-times"></use></svg></div> ${e.params.args.data.id}</li>`);
 							})
-							.on("select2:unselecting", (e) => {
+							.on("select2:unselecting", (e: any) => {
 								searchOptions.find(`>li[data-value="${e.params.args.data.id}"]`).remove();
 							})
-							.on("select2:open", function (e) {
+							.on("select2:open", function (e: any) {
 								const evt = "scroll.select2";
 								$(e.target).parents().off(evt);
 								$(window).off(evt);
 							})
-							.on("select2:closing", function (e) {
+							.on("select2:closing", function (e: any) {
 								e.preventDefault();
 							})
-							.on("select2:closed", function (e) {
+							.on("select2:closed", function (e: any) {
 								select.select2("open");
 							})
-							.on("change", function (e) {
+							.on("change", function (e: any) {
 								searchBox.attr("placeholder", "Buscar");
 								select.data("select2").results.setClasses();
 							});
 						select.select2("open");
 					}
-					if (valueType == "date") {
+					/*if (valueType == "date") {
 						let dateStart = filter.find(`[data-date="start"]>.js-datepicker`);
 						let dateEnd = filter.find(`[data-date="end"]>.js-datepicker`);
 
@@ -251,16 +260,16 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 								})
 							)
 							.val("");
-					}
+					}*/
 				},
-				"delete-option": (el) => {
-					let value = el.parent().attr("data-value");
+				"delete-option": (el: any) => {
+					let value: string = el.parent().attr("data-value");
 					let filter = el.closest(".dt-filter-container__item");
 					let select = filter.find("select[data-name='value']");
-					select.val(select.val().filter((item) => item != value)).trigger("change");
+					select.val(select.val().filter((item: string) => item != value)).trigger("change");
 					el.parent().remove();
 				},
-				get: (el) => {
+				/*get: (el) => {
 					let dtFilters = [];
 					try {
 						modalBody.find(`.dt-filter-container__item:not([data-name="empty"])`).each((index, item) => {
@@ -285,27 +294,32 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 						dtFilters = [];
 					}
 					return dtFilters;
-				},
+				},*/
 			};
 
 			modalBody.on("click", (Event) => {
-				if (Event.target.closest("[data-cmd]")) {
-					let el = $(Event.target.closest("[data-cmd]"));
-					if (!filter[el.attr("data-cmd")]) return;
-					filter[el.attr("data-cmd")](el);
+				let clickedElement: any = Event.target;
+				if (clickedElement.closest("[data-cmd]")) {
+					let el = clickedElement.closest("[data-cmd]");
+					let cmd = $(el).attr("data-cmd") || "";
+					if (cmd === "") return;
+					filter[cmd](el);
 				}
 			});
+			//let clickedElement: any = Event.target;
 
-			modalBody.on("change", (e) => {
-				if (e.target.closest(`[data-name="column-select"]`)) {
-					let el = $(e.target.closest(`[data-name="column-select"]`));
+			modalBody.on("change", (Event) => {
+				let changedElement: any = Event.target;
+				if (changedElement.closest(`[data-name="column-select"]`)) {
+					let el = changedElement.closest(`[data-name="column-select"]`);
 					filter["add-controls"](el);
 				}
-			});*/
+			});
 		},
 		simple: () => {},
 		records: () => {},
 	};
+
 	tableTypes[type]();
 
 	function getColumn(columnName: string) {

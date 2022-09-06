@@ -2,14 +2,15 @@
 	padding-bottom: 1rem;
 	/*margin: 1rem 1rem 0 1rem;*/
 	border-radius: 0.5rem;
-	border: 1px solid #e7e7e7;
-	background-color: var(--main-background);
+	border: var(--datatable-container-border);
+	background-color: var(--datatable-container-background);
 
 	& .dataTables_paginate {
 		width: 100%;
 		justify-content: center;
 		margin-top: 0px;
 		padding: 0.5rem 0;
+		color: inherit;
 		@include flex-r(null, center);
 
 		& > span {
@@ -25,32 +26,28 @@
 			}
 		}
 
-		& .ellipsis {
+		/*& .ellipsis {
 			color: var(--text3) !important;
-		}
+		}*/
 
 		& .paginate_button {
 			margin: 0px;
 			border: unset !important;
 			border-radius: unset;
-			color: var(--text3) !important;
-			&:active,
-			&:focus,
-			&:focus-visible,
-			&:hover {
+			color: inherit !important;
+			&:is(:active, :focus, :focus-visible, :hover) {
 				background: unset;
 				outline: unset;
 				box-shadow: unset;
 			}
 			&:hover {
-				color: var(--text2) !important;
+				color: var(--datatable-pagination-button-text) !important;
 			}
-			&.first,
-			&.previous,
-			&.next,
-			&.last {
-				color: var(--text2) !important;
+
+			&:is(.first, .previous, .next, .last) {
+				color: var(--datatable-pagination-button-text) !important;
 			}
+
 			&.first {
 				border-radius: 0.5rem 0 0 0.5rem;
 			}
@@ -60,15 +57,17 @@
 			}
 
 			&.disabled {
-				color: var(--text4) !important;
+				color: var(--datatable-pagination-button-disabled-text) !important;
+				cursor: not-allowed;
 				&:hover {
-					color: var(--text4) !important;
+					color: var(--datatable-pagination-button-disabled-hover-text) !important;
+					cursor: not-allowed;
 				}
 			}
 
 			&.current {
 				background: unset;
-				color: var(--text2);
+				color: var(--datatable-pagination-button-text);
 				font-weight: 600;
 				&:hover {
 					background: unset;
@@ -79,8 +78,8 @@
 
 	.js-dt-toolbar {
 		display: grid;
-		background-color: var(--datatable-header-background);
-		color: var(--datatable-header-forecolor);
+		background-color: var(--datatable-toolbar-background);
+		color: var(--datatable-toolbar-text);
 		padding: 0.5rem;
 		border-radius: 0.5rem 0.5rem 0 0;
 		grid-template-areas:
@@ -103,25 +102,25 @@
 		&__add {
 			grid-area: js-dt-toolbar__add;
 			justify-self: flex-end;
-			color: var(--datatable-input-forecolor);
-			border: var(--datatable-input-border);
+			color: var(--datatable-toolbar-input-text);
+			border: var(--datatable-toolbar-input-border);
 		}
 		&__filter {
 			grid-area: js-dt-toolbar__filter;
 			justify-self: center;
-			color: var(--datatable-input-forecolor);
-			border: var(--datatable-input-border);
+			color: var(--datatable-toolbar-input-text);
+			border: var(--datatable-toolbar-input-border);
 		}
 		&__export {
 			grid-area: js-dt-toolbar__export;
 			justify-self: flex-start;
 			& .js-dropdown__button {
-				background-color: var(--datatable-input-background);
-				border-color: unset;
-				color: var(--datatable-input-forecolor);
-				box-shadow: unset;
 				height: 100%;
-				border: var(--datatable-input-border);
+				background-color: var(--datatable-toolbar-input-background);
+				border-color: unset;
+				color: var(--datatable-toolbar-input-text);
+				box-shadow: unset;
+				border: var(--datatable-toolbar-input-border);
 				& > span {
 					display: none;
 				}
@@ -144,8 +143,8 @@
 		}
 
 		& :is(.dataTables_length, .dataTables_filter) :is(select, input) {
-			background-color: var(--datatable-input-background);
-			color: var(--datatable-input-forecolor);
+			background-color: var(--datatable-toolbar-input-background);
+			color: var(--datatable-toolbar-input-text);
 		}
 
 		& :is(#dbDt_length select, #dbDt_filter input[type="search"]) {
@@ -158,7 +157,7 @@
 
 		& .dataTables {
 			&_info {
-				color: var(--datatable-header-forecolor);
+				color: var(--datatable-toolbar-header-text);
 				font-weight: 600;
 			}
 
@@ -176,17 +175,17 @@
 				grid-area: search;
 				justify-content: center;
 				margin: 0px;
-				min-height: 34px;
+				height: 2.75rem;
 				& > label {
 					font-weight: bold;
-					color: var(--datatable-input-forecolor);
+					color: var(--datatable-toolbar-input-text);
 					position: relative;
 					height: 100%;
 					width: 100%;
 					& > .svg-icon {
 						position: absolute;
 						top: 50%;
-						left: 10px;
+						left: 0.5rem;
 						transform: translateY(-50%);
 						color: var(--text3);
 						font-size: 1rem;
@@ -196,7 +195,7 @@
 						height: 100%;
 						width: 100%;
 						padding: 0.25rem 0.5rem 0.25rem 2.15rem !important;
-						border: var(--datatable-input-border);
+						border: var(--datatable-toolbar-input-border);
 						border-radius: 0.25rem;
 					}
 				}
@@ -204,12 +203,17 @@
 		}
 
 		& :is(.js-dt-toolbar__add, .js-dt-toolbar__filter, .js-dt-toolbar__export > .js-dropdown__button) {
-			background-color: var(--datatable-input-background);
+			background-color: var(--datatable-toolbar-input-background);
 			border-radius: 0.25rem;
 			padding: 0.5rem 1.5rem;
 			cursor: pointer;
 			font-weight: 600;
 		}
+	}
+
+	& .js-dt-container {
+		overflow-x: auto;
+		overflow-y: hidden;
 	}
 
 	&[data-view="simple-table"] {
@@ -287,14 +291,17 @@
 			font-weight: bold;
 			box-shadow: inset 0 -0.175rem 0 0 rgba(0, 0, 0, 0.175);
 			& :is(th, td) {
-				background-color: var(--datatable-header-background);
-				color: var(--datatable-header-forecolor);
+				background-color: var(--datatable-toolbar-background);
+				color: var(--datatable-toolbar-text);
 				padding: 8px 10px;
 				border-bottom: 1px solid transparent;
 				text-align: left;
 				/*&:first-child {
 					padding-left: 40px;
 				}*/
+				&.js-datatable-actions {
+					width: 1px !important;
+				}
 				&:is(.sorting, .sorting_desc, .sorting_asc) {
 					background-image: unset !important;
 					position: relative;
@@ -354,7 +361,7 @@
 				--spinner-w: 3.125rem;
 				--spinner-h: 3.125rem;
 				--spinner-border-width: 0.3125rem;
-				--spinner-color: var(--datatable-header-background);
+				--spinner-color: var(--datatable-toolbar-background);
 				position: absolute;
 				top: 0px;
 				left: 0px;
@@ -398,10 +405,10 @@
 					min-width: 30px;
 					aspect-ratio: 1 / 1;
 					position: relative;
-					border: 1px solid #e7e7e7;
+					border: var(--datatable-container-border);
 					border-radius: 50%;
 					overflow: hidden;
-					background-color: var(--datatable-header-background);
+					background-color: var(--datatable-toolbar-background);
 					&::after {
 						content: attr(data-value);
 						position: absolute;
@@ -411,7 +418,7 @@
 						line-height: 80%;
 						font-weight: 500;
 						font-size: 12.5px;
-						color: var(--datatable-header-forecolor);
+						color: var(--datatable-toolbar-text);
 					}
 				}
 				& [data-name="user"] {
@@ -428,19 +435,20 @@
 						display: block;
 						min-width: 30px;
 						aspect-ratio: 1 / 1;
-						border: 1px solid #e7e7e7;
+						border: var(--datatable-container-border);
 						border-radius: 50%;
 					}
 				}
 			}
 
 			& > .js-datatable-actions {
+				width: 1px !important;
 				& > .js-dropdown {
 					margin-inline: auto;
 					& > .js-dropdown__button {
 						cursor: pointer;
 						background-color: unset;
-						color: #000;
+						color: inherit;
 						box-shadow: unset;
 						padding: 0.25rem 0.5rem;
 						& > .svg-icon {
@@ -502,7 +510,7 @@
 				vertical-align: middle !important;
 			}
 			&:not(:last-child):not(:only-child) {
-				box-shadow: inset 0 -0.07rem 0 0 #cecece !important;
+				box-shadow: var(--datatable-row-details-box-shadow) !important;
 			}
 		}
 	}
@@ -523,23 +531,23 @@
 			background-size: 1.15em 1.15em;
 			background-position: center;
 			background-repeat: no-repeat;
-			background-color: #00cc44;
+			background-color: var(--datatable-details-close);
 			transform: translateX(-50%) translateY(-5%);
 			border-radius: 0.4rem;
 			transition: 0.3s ease all;
 		}
 		&:hover::before {
-			background-color: #00ee63;
+			background-color: var(--datatable-details-close-hover);
 		}
 	}
 
 	&.dtr-inline.collapsed > tbody > tr.parent :is(td.dtr-control, th.dtr-control) {
 		&::before {
 			content: "";
-			background-color: #cc0000;
+			background-color: var(--datatable-details-open);
 		}
 		&:hover::before {
-			background-color: #f70000;
+			background-color: var(--datatable-details-open-hover);
 		}
 	}
 }
