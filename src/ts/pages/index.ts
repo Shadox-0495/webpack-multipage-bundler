@@ -1,6 +1,5 @@
 import { dataTable } from "@components/js-datatable";
 import { compileTemplate } from "@features/templates-loader";
-import "@sass/index.scss";
 
 let templateData = {
 	id: "dtDB",

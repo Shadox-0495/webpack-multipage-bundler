@@ -1,4 +1,11 @@
-import { parentNode } from "@utils/dom-utils";
+import "datatables.net-dt/css/jquery.dataTables.css";
+import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
+import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
+import "sweetalert2/dist/sweetalert2.min.css";
+import "select2/dist/css/select2.min.css";
+import "air-datepicker/air-datepicker.css";
+import "@sass/index.scss";
+import { parentNode } from "@features/utils";
 
 export const actions: any = {
 	state: {

@@ -1,8 +1,4 @@
-export function mergeObjects(target: any, args: any) {
-	if (Object.keys(args).length === 0) return target;
-	let merge = Object.assign(target, args);
-	return merge;
-}
+import { mergeObjects } from "@features/utils";
 
 export function confDataTables(args: Object = {}) {
 	let conf = {
@@ -125,19 +121,17 @@ export function confSweetAlert(
 	let obj = { title: title, icon: icon, html: html, showConfirmButton: false, showCancelButton: false, allowOutsideClick: false, cancelButtonText: "Cancelar" };
 	return (obj = mergeObjects(obj, args));
 }
+
 export function confDatePicker(args: Object = {}) {
 	let obj = {
-		format: "Y/m/d",
-		timepicker: false,
-		mask: true,
-		scrollInput: false,
-		className: "js-datepicker",
-		onGenerate: function () {
-			$(this).find(".xdsoft_today_button").html("<div></div>");
-		},
+		autoClose: true,
+		multipleDatesSeparator: " - ",
+		locale: "localeEn",
+		dateFormat: "YYYY/MM/DD",
 	};
 	return mergeObjects(obj, args);
 }
+
 export function confDropZone(args: Object = {}) {
 	let obj = {
 		url: "api/api.php",
@@ -157,6 +151,7 @@ export function confDropZone(args: Object = {}) {
 	};
 	return mergeObjects(obj, args);
 }
+
 export function confSelect2(args: any = {}) {
 	let obj = {
 		dropdownCssClass: "js-select2-dropdown",

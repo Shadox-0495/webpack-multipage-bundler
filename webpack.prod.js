@@ -16,7 +16,7 @@ const generateHtmlPlugin = (args) => {
 };
 
 let entry = {};
-entry["shared"] = { import: ["@features/page-global-events.ts"] };
+entry["shared"] = { import: ["@features/globals.ts"] };
 //loop through the pages folder and create a new html webpack plugin for each one
 let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/pages/")).map((file) => {
 	let name = file.split(".")[0];
@@ -25,7 +25,7 @@ let plugins = fs.readdirSync(path.resolve(__dirname, "./src/ts/pages/")).map((fi
 		pageTitle: name == "index" ? "Login" : name,
 		pageName: name,
 		template: path.resolve(__dirname, `./src/partials/index.hbs`),
-		chunks: [name, "shared"],
+		chunks: ["shared", name],
 	});
 });
 

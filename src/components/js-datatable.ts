@@ -1,12 +1,9 @@
-import "datatables.net-dt/css/jquery.dataTables.css";
-import "datatables.net-buttons-dt/css/buttons.dataTables.min.css";
-import "datatables.net-responsive-dt/css/responsive.dataTables.min.css";
-import "sweetalert2/dist/sweetalert2.min.css";
 import "datatables.net";
 import "datatables.net-responsive";
 import "datatables.net-buttons/js/buttons.html5.js";
 import "datatables.net-buttons/js/buttons.print.js";
-import { mergeObjects, confDataTables, confSweetAlert } from "@features/configs";
+import { mergeObjects } from "@features/utils";
+import { confDataTables, confSweetAlert } from "@features/configs";
 import { loadModals } from "@features/templates-loader";
 import { serverSelect2 } from "@components/js-select";
 
@@ -19,7 +16,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 
 	let tableId = $htmlTable.attr("id");
 	//let tableStart = $htmlTable.offset().top - 5;
-	let totalRecords = 0;
+	let totalRecords: Number = 0;
 
 	let columns = $htmlTable.find("thead>tr>th").map((index, colHeader) => {
 		let { name, type } = $(colHeader).data();
@@ -46,14 +43,11 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 			conf.ajax.data = (dataSent: any) => {
 				dataSent = mergeObjects(dataSent, ajaxArgs);
 				dataSent.totalRecords = totalRecords;
-				//d.filters = getFilters(`#dtFilter_${tableId}`);
-				//d.filters = filter.get();
+				dataSent.filters = filter.get();
 				return JSON.stringify(dataSent);
 			};
 			conf.ajax.dataSrc = (dataResponse: any) => {
-				if (totalRecords == 0) {
-					totalRecords = dataResponse.recordsTotal;
-				}
+				if (totalRecords == 0) totalRecords = dataResponse.recordsTotal;
 				dataResponse.recordsTotal = totalRecords;
 				return dataResponse.data;
 			};
@@ -148,8 +142,8 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				},
 				"delete-filter": (el: any) => {
 					let filter = $(el.closest(".dt-filter-container__item"));
-					/*if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
-					if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");*/
+					if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
+					//if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");
 					filter.remove();
 				},
 				"add-controls": (el: any) => {
@@ -203,7 +197,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 							`${process.env.API_URL}/api.php`,
 							params
 						);
-						let searchBox = filter.find(`input[type="search"]`);
+						let searchBox = filter.find(`[type="search"]`);
 						if (searchBox.parent().find(">.svg-icon").length == 0) searchBox.parent().prepend(`<div class="svg-icon"><svg viewBox="0 0 17 17"> <use xlink:href="#svg-search"></use></svg></div>`);
 						select
 							.on("select2:select", (e: any) => {
@@ -269,18 +263,18 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 					select.val(select.val().filter((item: string) => item != value)).trigger("change");
 					el.parent().remove();
 				},
-				/*get: (el) => {
-					let dtFilters = [];
+				get: (el: any) => {
+					let dtFilters: Array<Object> = [];
 					try {
 						modalBody.find(`.dt-filter-container__item:not([data-name="empty"])`).each((index, item) => {
 							let column = $(item).find(`[data-name="column-select"] :selected`).val(); //backend column name
 							let type = $(item).attr("data-value-type"); //column data type int/string/id/date
-							let values = [];
+							let values: any = [];
 							if (type == "string" || type == "id") values = $(item).find(`.dt-filter-container__item_body > [data-name="value"]`).val();
-							if (type == "date") {
+							/*if (type == "date") {
 								if ($(item).find(`[data-date="start"]>.js-datepicker`).val() != "") values.push($(item).find(`[data-date="start"]>.js-datepicker`).val());
 								if ($(item).find(`[data-date="end"]>.js-datepicker`).val() != "") values.push($(item).find(`[data-date="end"]>.js-datepicker`).val());
-							}
+							}*/
 							if (type == "int") values.push($(item).find(`.js-textbox__input`).val());
 							if (values.length == 0) return;
 							dtFilters.push({
@@ -294,7 +288,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 						dtFilters = [];
 					}
 					return dtFilters;
-				},*/
+				},
 			};
 
 			modalBody.on("click", (Event) => {
@@ -343,12 +337,12 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				Swal.fire(confSweetAlert("", "error", message, { showConfirmButton: true }));
 				return;
 			});
-			/*$(`#dtFilter_${tableId}`)
+			$(`#dtFilter_${tableId}`)
 				.find("[data-cmd='apply-filters']")
 				.attr({ "data-toggle": "modal", "data-target": `#dtFilter_${tableId}` })
 				.on("click", () => {
 					dataTable.ajax.reload();
-				});*/
+				});
 			dataTableContainer.find(".dataTables_filter>label").prepend(`<div class="svg-icon"><svg viewBox="0 0 17 17"> <use xlink:href="#svg-search"></use></svg></div>`); //adds search icon
 
 			dataTableContainer.find(".dataTables_filter input").addClass("js-dt-toolbar__search");

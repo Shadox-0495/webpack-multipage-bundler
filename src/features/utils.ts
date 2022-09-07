@@ -1,3 +1,9 @@
+export function mergeObjects(target: any, args: any) {
+	if (Object.keys(args).length === 0) return target;
+	let merge = Object.assign(target, args);
+	return merge;
+}
+
 export function parentNode(element: JQuery<HTMLElement>, num: Number) {
 	let current = element;
 	for (var i = 0; i < num; i++) {

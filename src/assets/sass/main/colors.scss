@@ -2,16 +2,17 @@
 	--main-color: hsl(226, 100%, 9%);
 	--main-background: hsl(0, 0%, 95%);
 	--main-border-color: hsl(0, 0%, 80%);
+	--icon-color: hsl(0, 0%, 67%);
 
 	--required-icon-color: #dc3545; /*mostly for the textbox's asterisk "*" */
 
 	--textbox-background-color: var(--main-background);
 	--textbox-text-color: var(--main-color);
-	--textbox-border-color: #333;
+	--textbox-border-color: hsl(0, 0%, 80%);
 
 	--button-primary-background-color: var(--main-background);
 	--button-primary-text-color: var(--main-color);
-	--button-primary-border-color: #333;
+	--button-primary-border-color: hsl(0, 0%, 80%);
 	--button-primary-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 	--button-primary-hover-background-color: var(--button-primary-background-color);
 	--button-primary-hover-text-color: var(--button-primary-text-color);
@@ -27,7 +28,7 @@
 
 	--button-warning-background-color: var(--main-background);
 	--button-warning-text-color: var(--main-color);
-	--button-warning-border-color: #333;
+	--button-warning-border-color: hsl(0, 0%, 80%);
 	--button-warning-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 	--button-warning-hover-background-color: var(--button-warning-background-color);
 	--button-warning-hover-text-color: var(--button-warning-text-color);
@@ -43,7 +44,7 @@
 
 	--button-disabled-background-color: var(--main-background);
 	--button-disabled-text-color: var(--main-color);
-	--button-disabled-border-color: #333;
+	--button-disabled-border-color: hsl(0, 0%, 80%);
 	--button-disabled-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 	--button-disabled-hover-background-color: var(--button-disabled-background-color);
 	--button-disabled-hover-text-color: var(--button-disabled-text-color);
@@ -51,7 +52,16 @@
 
 	--select-background-color: var(--main-background);
 	--select-text-color: var(--main-color);
-	--select-border-color: #333;
+	--select-border-color: hsl(0, 0%, 80%);
+
+	--select2-text: var(--main-color);
+	--select2-background: var(--main-background);
+	--select2-border-color: hsl(0, 0%, 80%);
+	--select2-search-icon-color: hsl(0, 0%, 67%);
+	--select2-hover-text: var(--main-color);
+	--select2-hover-background: hsl(0, 0%, 97%);
+	--select2-selected-text: var(--select2-text);
+	--select2-selected-background: hsl(0, 0%, 97%);
 
 	--datatable-container-background: var(--main-background);
 	--datatable-container-border: 1px solid #e7e7e7;
@@ -76,6 +86,16 @@
 	--datatable-details-open: #cc0000;
 	--datatable-details-open-hover: #f70000;
 
+	--checkbox-default-text: var(--main-color);
+	--checkbox-default-background: transparent;
+	--checkbox-default-border-color: hsl(0, 0%, 80%);
+	--checkbox-default-border: 1px solid var(--checkbox-default-border-color);
+	--checkbox-default-transition: color 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+
+	--checkbox-active-text: hsl(0, 0%, 100%);
+	--checkbox-active-background: hsl(218, 39%, 53%);
+	--checkbox-active-border: 1px solid hsl(218, 39%, 53%);
+
 	/*
 	--datatable-row-bottom-border-color: hsl(0, 0%, 91%);
 	--datatable-row-hover-background: hsl(0, 0%, 92%);
@@ -85,7 +105,7 @@
 	--text3: hsl(0, 0%, 67%);
 	--text4: hsl(0, 0%, 81%);
 
-	--icon-color: hsl(0, 0%, 67%);
+	
 
 	--js-textbox-label-background-color: transparent;
 	--js-textbox-focus-border-color: hsl(209, 100%, 30%);*/

@@ -1,4 +1,5 @@
-import { mergeObjects, confSweetAlert } from "@features/configs";
+import { mergeObjects } from "@features/utils";
+import { confSweetAlert } from "@features/configs";
 import Swal from "sweetalert2";
 
 export async function ajaxGET(url: string, args: JQueryAjaxSettings = {}, data: any = {}) {

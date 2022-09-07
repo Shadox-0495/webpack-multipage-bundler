@@ -1,7 +1,7 @@
 import "select2";
-import "select2/dist/css/select2.min.css";
 import Swal from "sweetalert2";
-import { confSelect2, confSweetAlert, mergeObjects } from "@features/configs";
+import { mergeObjects } from "@features/utils";
+import { confSelect2, confSweetAlert } from "@features/configs";
 
 export function serverSelect2(htmlSelect: JQuery<HTMLElement>, confArgs: any = {}, url: string, ajaxArgs: any = {}) {
 	let conf: any = confSelect2(confArgs);
