@@ -11,3 +11,13 @@ export function parentNode(element: JQuery<HTMLElement>, num: Number) {
 	}
 	return current;
 }
+
+export function htmlStringToFragment(html: string) {
+	let docFragment = document.createDocumentFragment();
+	let elContainer = document.createElement("div");
+	elContainer.innerHTML = html;
+	while (elContainer.childNodes[0]) {
+		docFragment.appendChild(elContainer.childNodes[0]);
+	}
+	return docFragment;
+}

@@ -11,7 +11,7 @@ let templateData = {
 			{ id: "t1.Embarque", type: "string", class: "all", label: "Embarque" },
 			{ id: "t2.Codigo", type: "string", class: "all", label: "Contenedor" },
 			{ id: "t3.Nombre", type: "string", class: "all", label: "Bodega" },
-			{ id: "-1", type: "", class: "all", label: "" },
+			//{ id: "-1", type: "", class: "all", label: "" },
 		],
 	],
 };

@@ -33,26 +33,30 @@
 			white-space: nowrap;
 			min-height: 2rem;
 			column-gap: 0.5rem;
+			background-color: inherit;
+			border: 0;
+			border-radius: 0;
 			&:hover {
 				background-color: #94c3f5;
+				border: 0;
 			}
 		}
 	}
-	&.drop-down-left .js-dropdown__menu {
+	&:is(.drop-down-left, [data-drop="down-left"]) .js-dropdown__menu {
 		top: calc(100% + 0.25rem);
 		left: unset;
 		right: 0;
 	}
-	&.drop-left .js-dropdown__menu {
+	&:is(.drop-left, [data-drop="left"]) .js-dropdown__menu {
 		top: 0;
 		left: unset;
 		right: calc(100% + 0.25rem);
 	}
-	&.drop-down-right .js-dropdown__menu {
+	&:is(.drop-down-right, [data-drop="down-right"]) .js-dropdown__menu {
 		top: calc(100% + 0.25rem);
 		left: 0;
 	}
-	&.drop-right .js-dropdown__menu {
+	&:is(.drop-right, [data-drop="right"]) .js-dropdown__menu {
 		top: 0;
 		left: calc(100% + 0.25rem);
 	}

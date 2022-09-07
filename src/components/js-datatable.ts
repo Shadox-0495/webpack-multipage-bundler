@@ -6,6 +6,7 @@ import { mergeObjects } from "@features/utils";
 import { confDataTables, confSweetAlert } from "@features/configs";
 import { loadModals } from "@features/templates-loader";
 import { serverSelect2 } from "@components/js-select";
+import "@components/js-dropdown";
 
 import Swal from "sweetalert2";
 
@@ -64,7 +65,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 					$htmlTable.find("tbody").html(loadingSpinner);
 				}
 			};
-			conf.columnDefs.push({
+			/*conf.columnDefs.push({
 				targets: -1,
 				width: "1px",
 				orderable: false,
@@ -72,19 +73,12 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				data: null,
 				class: "js-datatable-actions",
 				render: () => {
-					return `<div class='js-dropdown drop-down-left'>
-                    <div class='js-dropdown__button' data-toggle='dropdown' data-target='parent(1)'>
-						<div class="svg-icon">
-							<svg viewBox="-6.5 -1.5 16 16"> <use xlink:href="#svg-ellipsis-v"></use></svg>
-						</div>
-                    </div>
-                    <div class='js-dropdown__menu'>
-                      ${$("html").attr("data-eliminar") ? `<a class='js-dropdown__menu-item' data-cmd='Eliminar'><div class="svg-icon"><svg viewBox="-1.5 0 16 16"> <use xlink:href="#svg-delete"></use></svg></div>Eliminar</a>` : ""}
-                      ${$("html").attr("data-modificar") ? `<a class='js-dropdown__menu-item' data-cmd='Modificar'><div class="svg-icon"><svg viewBox="0 0 16.5 18"> <use xlink:href="#svg-edit"></use></svg></div>Modificar</a>` : ""}
-                    </div>
-                  </div>`;
+					return `<js-dropdown data-drop="down-right" data-icon="#svg-ellipsis-v" data-viewbox="-6.5 -1.5 16 16">
+								${$("html").attr("data-eliminar") ? `<a class='js-dropdown__menu-item' data-cmd='Eliminar'><div class="svg-icon"><svg viewBox="-1.5 0 16 16"> <use xlink:href="#svg-delete"></use></svg></div>Eliminar</a>` : ""}
+								${$("html").attr("data-modificar") ? `<a class='js-dropdown__menu-item' data-cmd='Modificar'><div class="svg-icon"><svg viewBox="0 0 16.5 18"> <use xlink:href="#svg-edit"></use></svg></div>Modificar</a>` : ""}
+                  			</js-dropdown>`;
 				},
-			});
+			});*/
 
 			$("body").append(`<div class="js-modal js-datatable__modal" data-title="Filtros" data-modal="" id="dtFilter_${tableId}"></div>`);
 			await loadModals();
@@ -257,7 +251,8 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 					}*/
 				},
 				"delete-option": (el: any) => {
-					let value: string = el.parent().attr("data-value");
+					el = $(el);
+					let value: any = el.parent().attr("data-value");
 					let filter = el.closest(".dt-filter-container__item");
 					let select = filter.find("select[data-name='value']");
 					select.val(select.val().filter((item: string) => item != value)).trigger("change");
