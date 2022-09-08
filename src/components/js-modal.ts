@@ -1,5 +1,4 @@
-export {};
-class jsModal extends HTMLElement {
+export default class jsModal extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -25,5 +24,3 @@ class jsModal extends HTMLElement {
                         </div>`;
 	}
 }
-
-customElements.define("js-modal", jsModal);

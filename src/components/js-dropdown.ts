@@ -1,6 +1,6 @@
 import { htmlStringToFragment } from "@features/utils";
 
-class jsDropDown extends HTMLElement {
+export default class jsDropDown extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -38,5 +38,3 @@ class jsDropDown extends HTMLElement {
 		}
 	}
 }
-
-customElements.define("js-dropdown", jsDropDown);

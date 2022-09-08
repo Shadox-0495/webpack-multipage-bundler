@@ -6,6 +6,13 @@ import "select2/dist/css/select2.min.css";
 import "air-datepicker/air-datepicker.css";
 import "@sass/index.scss";
 import { parentNode } from "@features/utils";
+import jsTextbox from "@components/js-textbox";
+import jsModal from "@components/js-modal";
+import jsDropDown from "@components/js-dropdown";
+
+customElements.define("js-textbox", jsTextbox);
+customElements.define("js-modal", jsModal);
+customElements.define("js-dropdown", jsDropDown);
 
 export const actions: any = {
 	state: {

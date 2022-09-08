@@ -1,5 +1,4 @@
-export {};
-class jsTextbox extends HTMLElement {
+export default class jsTextbox extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -15,13 +14,11 @@ class jsTextbox extends HTMLElement {
 	render() {
 		this.classList.add("js-textbox");
 		this.innerHTML = `<input class="js-textbox__input" type="text">
-                          <div class="js-textbox__label">lebel for the input</div>`;
+                          <div class="js-textbox__label">label for the input</div>`;
 		this.addEventListener("click", () => {
-			let textBox = this.querySelector(".js-textbox__input") as HTMLElement | null;
+			let textBox: HTMLElement | null = this.querySelector(".js-textbox__input");
 			if (textBox == null) return;
 			textBox.focus();
 		});
 	}
 }
-
-customElements.define("js-textbox", jsTextbox);

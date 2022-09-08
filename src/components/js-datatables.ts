@@ -6,8 +6,7 @@ import { mergeObjects } from "@features/utils";
 import { confDataTables, confSweetAlert } from "@features/configs";
 import { loadModals } from "@features/templates-loader";
 import { serverSelect2 } from "@components/js-select";
-import { datePicker, destroyDatePicker } from "@components/js-datepicker";
-import "@components/js-dropdown";
+import { datePicker } from "@components/js-datepicker";
 
 import Swal from "sweetalert2";
 

@@ -2,7 +2,7 @@
 	@font-face {
 		font-family: $family;
 		src: url($file + ".eot");
-		src: url($file + ".eot?#iefix") format("embedded-opentype"), url($file + ".woff") format("woff"), url($file + ".ttf") format("truetype"), url($file + ".svg") format("svg");
+		src: url($file + ".eot?#iefix") format("embedded-opentype"), url($file + ".woff") format("woff"), url($file + ".ttf") format("truetype");
 		font-weight: $weight;
 		font-style: $style;
 		font-display: block;
