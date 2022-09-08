@@ -1,4 +1,5 @@
 import { mergeObjects } from "@features/utils";
+import localES from "air-datepicker/locale/es";
 
 export function confDataTables(args: Object = {}) {
 	let conf = {
@@ -126,8 +127,8 @@ export function confDatePicker(args: Object = {}) {
 	let obj = {
 		autoClose: true,
 		multipleDatesSeparator: " - ",
-		locale: "localeEn",
-		dateFormat: "YYYY/MM/DD",
+		dateFormat: "yyyy/MM/dd",
+		locale: localES,
 	};
 	return mergeObjects(obj, args);
 }

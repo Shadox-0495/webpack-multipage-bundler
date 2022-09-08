@@ -14,7 +14,7 @@
 	@include scrollbar(rgba(0, 0, 0));
 	&.open {
 		opacity: 1;
-		z-index: 200;
+		z-index: 100;
 		visibility: visible;
 	}
 	&__content {

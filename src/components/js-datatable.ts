@@ -6,6 +6,7 @@ import { mergeObjects } from "@features/utils";
 import { confDataTables, confSweetAlert } from "@features/configs";
 import { loadModals } from "@features/templates-loader";
 import { serverSelect2 } from "@components/js-select";
+import { datePicker, destroyDatePicker } from "@components/js-datepicker";
 import "@components/js-dropdown";
 
 import Swal from "sweetalert2";
@@ -137,7 +138,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 				"delete-filter": (el: any) => {
 					let filter = $(el.closest(".dt-filter-container__item"));
 					if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
-					//if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");
+					//if (filter.find(".js-datepicker[data-name='value']").length > 0)
 					filter.remove();
 				},
 				"add-controls": (el: any) => {
@@ -162,7 +163,7 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 					if (filter.find(`ul[data-name="db-dt-filter-list"]`).length > 0 && (valueType != "string" || valueType != "id")) filter.find(`ul[data-name="db-dt-filter-list"]`).remove();
 					if (filter.find(">.dt-filter-container__item_body>*").length > 0) {
 						if (filter.find("select[data-name='value']").length > 0) filter.find("select[data-name='value']").select2("destroy");
-						if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datetimepicker("destroy");
+						if (filter.find(".js-datepicker[data-name='value']").length > 0) filter.find(".js-datepicker[data-name='value']").datePicker("destroy");
 						filter.find(">.dt-filter-container__item_body").empty();
 					}
 					filter.addClass("open").attr("data-value-type", valueType);
@@ -222,33 +223,24 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 							});
 						select.select2("open");
 					}
-					/*if (valueType == "date") {
-						let dateStart = filter.find(`[data-date="start"]>.js-datepicker`);
-						let dateEnd = filter.find(`[data-date="end"]>.js-datepicker`);
-
-						dateStart
-							.datetimepicker(
-								cFormats.datepicker({
-									onShow: function () {
-										this.setOptions({
-											maxDate: dateEnd.val() ? dateEnd.val() : false,
-										});
-									},
-								})
-							)
-							.val("");
-						dateEnd
-							.datetimepicker(
-								cFormats.datepicker({
-									onShow: function () {
-										this.setOptions({
-											minDate: dateStart.val() ? dateStart.val() : false,
-										});
-									},
-								})
-							)
-							.val("");
-					}*/
+					if (valueType == "date") {
+						let dateStartInput = filter[0].querySelector(`[data-date="start"]>.js-datepicker`);
+						let dateEndInput = filter[0].querySelector(`[data-date="end"]>.js-datepicker`);
+						let dateStart = datePicker(dateStartInput, {
+							onSelect({ date }: any) {
+								dateEnd.update({
+									minDate: date,
+								});
+							},
+						});
+						let dateEnd = datePicker(dateEndInput, {
+							onSelect({ date }: any) {
+								dateStart.update({
+									maxDate: date,
+								});
+							},
+						});
+					}
 				},
 				"delete-option": (el: any) => {
 					el = $(el);
@@ -266,10 +258,10 @@ export async function dataTable($htmlTable: JQuery, url: string = "", ajaxArgs: 
 							let type = $(item).attr("data-value-type"); //column data type int/string/id/date
 							let values: any = [];
 							if (type == "string" || type == "id") values = $(item).find(`.dt-filter-container__item_body > [data-name="value"]`).val();
-							/*if (type == "date") {
+							if (type == "date") {
 								if ($(item).find(`[data-date="start"]>.js-datepicker`).val() != "") values.push($(item).find(`[data-date="start"]>.js-datepicker`).val());
 								if ($(item).find(`[data-date="end"]>.js-datepicker`).val() != "") values.push($(item).find(`[data-date="end"]>.js-datepicker`).val());
-							}*/
+							}
 							if (type == "int") values.push($(item).find(`.js-textbox__input`).val());
 							if (values.length == 0) return;
 							dtFilters.push({
