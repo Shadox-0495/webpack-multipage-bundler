@@ -1,4 +1,4 @@
-import { dataTable } from "@components/js-datatable";
+import { dataTable } from "@components/js-datatables";
 import { compileTemplate } from "@features/templates-loader";
 
 let templateData = {
